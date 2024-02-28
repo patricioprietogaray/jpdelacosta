@@ -1,0 +1,20 @@
+{
+  "name": "backend",
+  "version": "0.0.1",
+  "description": "Sorteo de Abogados para el Juzgado de Paz de La Costa",
+  "main": "./server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./server/server.js"
+  },
+  "author": "Patricio Prieto Garay - Juzgado de Paz Letrado de La Costa",
+  "license": "ISC",
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "mongoose": "^8.1.3",
+    "nodemon": "^3.0.3"
+  }
+}
