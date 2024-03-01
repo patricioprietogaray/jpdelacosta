@@ -1,0 +1,17 @@
+.delete-container {
+    position: fixed;
+    top: 10px;
+    left: 22%;
+    margin: 10px;
+    width: 72%;
+    height: 90%;
+    background-color: #310703e8;
+    color: white;
+    border-radius: 20px;
+}
+
+h1 {
+    text-align: center;
+    text-transform: uppercase;
+}
+

@@ -1,0 +1,156 @@
+/* Estilos para el cuerpo de la página */
+body {
+    font-family: Arial, sans-serif;
+    /* Fuente predeterminada */
+    background-color: #F4F6F7;
+    /* Color de fondo (gris claro) */
+    margin: 0;
+    /* Eliminar márgenes predeterminados */
+    padding: 0;
+    /* Eliminar espacios de relleno predeterminados */
+    display: flex;
+    /* Establecer el contenedor principal como flex */
+    flex-direction: column;
+    /* Dirección de los elementos */
+    align-items: center;
+    /* Alinear elementos en el centro horizontal */
+    justify-content: center;
+    /* Alinear elementos en el centro vertical */
+    height: 100vh;
+    /* Establecer la altura del cuerpo al 100% del viewport */
+    
+    width: 85%;
+    margin-left: 15%;
+}
+
+/* Estilos para el título */
+h1.titulo {
+    font-size: 36px;
+    /* Tamaño del texto */
+    color: #2C3E50;
+    /* Color del texto (azul oscuro) */
+    text-align: center;
+    /* Alineación del texto */
+    text-transform: uppercase;
+    /* Convertir texto a mayúsculas */
+    margin-bottom: 20px;
+    /* Margen inferior */
+}
+
+/* Estilos para el subtítulo */
+h2.subtitulo {
+    font-size: 24px;
+    /* Tamaño del texto */
+    color: #E74C3C;
+    /* Color del texto (rojo) */
+    text-align: center;
+    /* Alineación del texto */
+    font-style: italic;
+    /* Estilo de fuente cursiva */
+    margin-bottom: 40px;
+    /* Margen inferior */
+}
+
+
+.menu-principal {
+    position: fixed;
+    /* Permanece fijo en la pantalla mientras se desplaza */
+    top: 0;
+    /* Posiciona en la parte superior */
+    left: 0;
+    /* Posiciona en el lado izquierdo */
+    width: 15%;
+    /* Ancho del menú */
+    height: 100%;
+    /* Altura igual al 100% de la pantalla */
+    background-color: #2C3E50;
+    /* Color de fondo del menú (azul oscuro) */
+    padding: 20px;
+    /* Espaciado interno */
+    display: flex;
+    /* Establece el contenedor como flex */
+    flex-direction: column;
+    /* Dirección de los elementos: vertical */
+}
+
+.menu-container h2 {
+    color: #fff;
+    /* Color del texto (blanco) */
+}
+
+.menu-container button {
+    margin-top: 10px;
+    /* Margen superior entre botones */
+    padding: 10px;
+    /* Espaciado interno de los botones */
+    border: none;
+    /* Sin borde */
+    background-color: #E74C3C;
+    /* Color de fondo de los botones (rojo) */
+    color: #fff;
+    /* Color del texto (blanco) */
+    font-size: 16px;
+    /* Tamaño del texto */
+    cursor: pointer;
+    /* Cambia el cursor al pasar sobre los botones */
+}
+
+.menu-container button img {
+    width: 20px;
+    /* Ancho de las imágenes */
+    margin-right: 10px;
+    /* Margen derecho entre la imagen y el texto */
+}
+
+.menu-container button:hover {
+    background-color: #b41b0a;
+}
+
+/* .create-container {
+    position: fixed;
+    top: 10px;
+    left: 22%;
+    margin: 10px;
+    width: 72%;
+    height: 90%;
+    background-color: #030f31e8;
+    color:white;
+    border-radius: 20px;
+} */
+
+/* .query-container {
+    position: fixed;
+    top: 10px;
+    left: 22%;
+    margin: 10px;
+    width: 72%;
+    height: 90%;
+    background-color: #033103e8;
+    color: white;
+    border-radius: 20px;
+} */
+
+/* .update-container {
+    position: fixed;
+    top: 10px;
+    left: 22%;
+    margin: 10px;
+    width: 72%;
+    height: 90%;
+    background-color: #303103e8;
+    color: white;
+    border-radius: 20px;
+} */
+
+/* .delete-container {
+    position: fixed;
+    top: 10px;
+    left: 22%;
+    margin: 10px;
+    width: 72%;
+    height: 90%;
+    background-color: #310703e8;
+    color: white;
+    border-radius: 20px;
+}
+ */
