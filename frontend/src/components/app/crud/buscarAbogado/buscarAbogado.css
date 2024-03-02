@@ -1,8 +1,59 @@
 .caja-busqueda-container {
-    /* background-color: blue; */
     width: 80%;
     text-align: center;
-    /* align-items: center; */
     margin: auto;
     padding: 5px 0;
+    padding-bottom: 40px;
+    background-color: rgba(255, 255, 255, 0.219);
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 20px;
+}
+
+.caja-busqueda-container select,
+.caja-busqueda-container input,
+.caja-busqueda-container button {
+    margin: 0 10px;
+}
+
+.mensaje {
+    width: 80%;
+    text-align: center;
+    margin: auto;
+    padding: 5px 0;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.521);
+
+}
+
+.seccion {
+    display: flex;
+    justify-content: center;
+}
+
+.articulo {
+    margin-top: 20px;
+    align-items: center;
+}
+
+.articulo input {
+    margin-left: 20px;
+}
+
+.articulo label {
+    margin-left: 20px;
+}
+
+.domreal input,
+.domelec input,
+.domlegal input {
+    width: 70%;
+    margin-left: 10px;
+}
+
+.nombre {
+    width: 80%;
+}
+.nombre input {
+    width: 70%;
 }

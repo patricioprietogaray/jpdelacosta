@@ -2,13 +2,11 @@ import React from 'react';
 import './createAbogado.css';
 import BuscarAbogado from '../buscarAbogado/buscarAbogado';
 
-const CreateAbogado = () => {
+const CreateAbogado = ({baseDatos}) => {
     return (
         <>
             <section className='create-container'>
-                <h1>create</h1>
-                <h1>Modulo de creacion</h1>
-                <BuscarAbogado llamado='createAbogado' />
+                <BuscarAbogado key={baseDatos.bd_abog_cuit} baseDatos={baseDatos} llamado='createAbogado' />
             </section>
         </>
     );

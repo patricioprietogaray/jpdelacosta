@@ -2,13 +2,11 @@ import React from 'react';
 import './queryAbogado.css';
 import BuscarAbogado from '../buscarAbogado/buscarAbogado';
 
-const QueryAbogado = (props) => {
+const QueryAbogado = ({baseDatos}) => {
     return (
         <>
             <section className='query-container'>
-                <h1>Query</h1>
-                <h1>Modulo de consultas</h1>
-                <BuscarAbogado llamado='queryAbogado'  />
+                <BuscarAbogado key={baseDatos.bd_abog_cuit} baseDatos={baseDatos} llamado='queryAbogado' />
             </section>
         </>
     );

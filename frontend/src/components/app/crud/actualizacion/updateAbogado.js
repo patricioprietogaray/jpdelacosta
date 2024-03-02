@@ -2,13 +2,11 @@ import React from 'react';
 import './updateAbogado.css';
 import BuscarAbogado from '../buscarAbogado/buscarAbogado';
 
-const UpdateAbogado = (props) => {
+const UpdateAbogado = ({baseDatos}) => {
     return (
         <>
             <section className='update-container'>
-                <h1>Update</h1>
-                <h1>Modulo de actualizacion</h1>
-                <BuscarAbogado llamado='updateAbogado' />
+                <BuscarAbogado key={baseDatos.bd_abog_cuit} baseDatos={baseDatos} llamado='updateAbogado' />
             </section>
         </>
     );
