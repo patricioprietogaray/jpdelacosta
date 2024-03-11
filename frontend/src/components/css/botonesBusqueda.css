@@ -1,0 +1,31 @@
+/* botones Busqueda.css */
+
+
+.contenedorBotones .botonBusqueda {
+    width: 170px;
+    height: 20px;
+    
+    /* padding: 30px 50px; */
+    /* Padding para los botones */
+    margin: 20px 20px;
+    /* Margen entre los botones */
+    font-size: 18px;
+    /* Tamaño del texto */
+    /* background-color: #3498db; */
+    background-color: #3498db;
+    /* Color de fondo de los botones (azul) */
+    color: #ffffff;
+    /* Color del texto (blanco) */
+    border: none;
+    /* Quitar bordes de los botones */
+    border-radius: 5px;
+    /* Borde redondeado */
+    cursor: pointer;
+    /* Cambiar el cursor a pointer */
+}
+
+
+.contenedorBotones button:hover {
+    background-color: #2980b9;
+    /* Cambiar el color de fondo al pasar el mouse por encima */
+}

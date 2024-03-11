@@ -1,3 +1,4 @@
+//componente principal.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -15,56 +16,12 @@ const Principal = () => {
     // manejo de los botones
     const [botonmenu, setBotonmenu] = useState('');
 
-    // manejador de la bd
-    const puertoNode = process.env.REACT_APP_NODE_PORT || 3001;
-    const [abogadosBD, setAbogadosBD] = useState([]);
-    const [mensajeError, setMensajeError] = useState('');
-
-
     // funcion recibe eventos al cliquear un boton.
     const presiono=(boton)=> {
         setBotonmenu(boton);
     }
 
-    // const cargarBDabogados = async () => {
-    //     try {
-    //         const servidorBD = `http://localhost:${puertoNode}/abogados/`;
-    //         const respuestaObtencionColeccion = await axios.get(servidorBD);
-    //         setAbogadosBD(respuestaObtencionColeccion.data.abogados_collections);
-    //         console.log("abogados: " + abogadosBD);
-    //     } catch (error) {
-    //         setMensajeError(error.message);
-    //         alert("error: " + mensajeError);
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     cargarBDabogados();
-    // })
-
-
-    useEffect(() => {
-        const cargarBDabogados = async () => {
-            try {
-                const servidorBD = `http://localhost:${puertoNode}/abogados/`;
-                const respuestaObtencionColeccion = await axios.get(servidorBD);
-                setAbogadosBD(respuestaObtencionColeccion.data.abogados_collections);
-            } catch (error) {
-                setMensajeError(error.message);
-                alert("error: " + mensajeError);
-            }
-        };
-
-        cargarBDabogados();
-    }, []); // Agregamos un array vacío como segundo argumento para que useEffect se ejecute solo una vez al montar el componente
-
-    useEffect(() => {
-        console.log("abogados desde principal: ", abogadosBD);
-    }, [abogadosBD]); // Este useEffect se ejecutará cada vez que abogadosBD cambie
-
-
-
-
+   
     return (
         <>
             <section className='menu-principal'> 
@@ -77,11 +34,12 @@ const Principal = () => {
             <section className='contenido-principal'>
                 <h1 className='titulo'>Sorteo de abogados</h1>
                 <h2 className='subtitulo'>Juzgado de paz letrado de La Costa</h2>
-                
-                {botonmenu === 'create' && (<CreateAbogado key={abogadosBD.bd_abog_cuit} baseDatos={abogadosBD} />)}
-                {botonmenu === 'query' && (<QueryAbogado   key={abogadosBD.bd_abog_cuit} baseDatos={abogadosBD} />)}
-                {botonmenu === 'update' && (<UpdateAbogado key={abogadosBD.bd_abog_cuit} baseDatos={abogadosBD} />)} 
-                {botonmenu === 'delete' && (<DeleteAbogado key={abogadosBD.bd_abog_cuit} baseDatos={abogadosBD} />)}
+                 
+                {/*{botonmenu === 'create' && (<CreateAbogado key={abogadosBD.bd_abog_cuit} baseDatos={abogadosBD} />)}*/}
+                {botonmenu === 'create' && (<CreateAbogado />)}
+                {/* {botonmenu === 'query' && (<QueryAbogado   key={abogadosBD.bd_abog_cuit} baseDatos={abogadosBD} />)} */}
+                {/* {botonmenu === 'update' && (<UpdateAbogado key={abogadosBD.bd_abog_cuit} baseDatos={abogadosBD} />)}  */}
+                {/* {botonmenu === 'delete' && (<DeleteAbogado key={abogadosBD.bd_abog_cuit} baseDatos={abogadosBD} />)} */}
 
             </section>
         </>

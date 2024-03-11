@@ -54,6 +54,30 @@
 .nombre {
     width: 80%;
 }
+
 .nombre input {
     width: 70%;
+}
+
+.boton {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.boton-guardar {
+    background-color: blue;
+    color: white;
+    margin-right: 10px;
+}
+
+.boton-cancelar {
+    background-color: gray;
+    color: white;
+}
+
+
+button:hover {
+    background-color: rgb(18, 5, 134);
 }

@@ -16,7 +16,7 @@ const crearRegistroAbog = async (req, res) => {
             res.status(200).json({ msg: "El registro existe!" });
         }
     } catch (error) {
-        es.status(200).json({ msg: "El servidor no responde: "+error.message });
+        res.status(200).json({ msg: "El servidor no responde: "+error.message });
     }
 }
 

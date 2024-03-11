@@ -1,0 +1,49 @@
+/* botones princiaples.css */
+
+.contenedorBotones {
+    display: flex;
+    /* Establecer el contenedor principal como flex */
+    flex-direction: column;
+    /* Dirección de los elementos */
+    align-items: center;
+    /* Alinear elementos en el centro horizontal */
+    justify-content: center;
+    /* Alinear elementos en el centro vertical */
+    margin-top: 20px;
+    /* Margen superior */
+}
+
+.contenedorBotones section {
+    margin-bottom: 20px;
+    /* Margen inferior */
+}
+
+.contenedorBotones button {
+    width: 300px;
+    height: 200px;
+    
+    /* padding: 30px 50px; */
+    /* Padding para los botones */
+    margin: 20px 20px;
+    /* Margen entre los botones */
+    font-size: 38px;
+    /* Tamaño del texto */
+    background-color: #3498db;
+    /* Color de fondo de los botones (azul) */
+    color: #ffffff;
+    /* Color del texto (blanco) */
+    border: none;
+    /* Quitar bordes de los botones */
+    border-radius: 5px;
+    /* Borde redondeado */
+    cursor: pointer;
+    /* Cambiar el cursor a pointer */
+}
+
+.contenedorBotones button.ts {
+    margin-top: -130px;
+}
+.contenedorBotones button:hover {
+    background-color: #2980b9;
+    /* Cambiar el color de fondo al pasar el mouse por encima */
+}
