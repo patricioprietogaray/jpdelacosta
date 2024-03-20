@@ -80,16 +80,44 @@ const BuscarLetrado = () => {
 
     const consultarPorCUIT = (opcionBusqueda, textoBusqueda) => {
         
-        
+        console.log(opcionBusqueda);
 
-            
-        
+              
             if (opcionBusqueda === '' && textoBusqueda === '') {
                 setMensajeConsulta("No hay nada que mostrar!");
             } else if ((opcionBusqueda === 'bd_abog_cuit' || opcionBusqueda === 'bd_abog_nombre') && textoBusqueda === '') {
                 setMensajeConsulta("El texto está vacío!");
             } else if (opcionBusqueda === 'bd_abog_nombre' && textoBusqueda !== '') {
                 setMensajeConsulta("buscando por nombre.....");
+                const abogadoEncontrado = abogadosBD.find(reg => reg.bd_abog_nombre === textoBusqueda);
+                if (abogadoEncontrado) {
+                    const { bd_abog_cuit,
+                        bd_abog_nombre,
+                        bd_abog_tomo,
+                        bd_abog_folio,
+                        bd_abog_asesor,
+                        bd_abog_defensor,
+                        bd_abog_domicilio_electronico,
+                        bd_abog_email,
+                        bd_abog_celular,
+                        bd_abog_telefono_fijo,
+                        bd_abog_zona,
+                        bd_abog_domicilio_legal,
+                        bd_abog_usuario_mev } = abogadoEncontrado;
+                    setMensajeConsulta(`${bd_abog_nombre}, con CUIT ${bd_abog_cuit}, tomo ${bd_abog_tomo} y 
+                                folio ${bd_abog_folio}, con domicilio electrónico ${bd_abog_domicilio_electronico}.
+                                El número de telefono fijo es ${bd_abog_telefono_fijo}, y celular ${bd_abog_celular},
+                                domicilio legal ${bd_abog_domicilio_legal}, zona ${bd_abog_zona}, 
+                                anotado en el listado de defensores ${bd_abog_defensor} y asesor ${bd_abog_asesor}. 
+                                Correo electrónico ${bd_abog_email} Usuario MEV ${bd_abog_usuario_mev}.`);
+                    setMostrarConsulta(true);
+                } else {
+                    setMensajeAlBuscar("No se encontró ningún abogado con ese nombre!");
+                    setMostrarConsulta(false); 
+                }
+                
+                
+                
             } else if (opcionBusqueda === 'bd_abog_cuit' && Number(textoBusqueda)) {
                 setMensajeConsulta("buscando por cuit.....");
                 const { bd_abog_cuit,
@@ -119,8 +147,10 @@ const BuscarLetrado = () => {
                 if (abogadosBD.find(reg => reg.bd_abog_cuit === Number(textoBusqueda)) !== undefined) {
                     const { bd_abog_cuit } = abogadosBD.find(reg => reg.bd_abog_cuit === Number(textoBusqueda));
                     setResultado(`Ha encontrado a ${bd_abog_cuit} en la lista!`);
+                    setMensajeConsulta(true);
                 } else {
                     setResultado("El CUIT no se encuentra en la base de datos!");
+                    setMensajeConsulta(false);
                 }
             }
             setMostrarConsulta(true);

@@ -1,0 +1,56 @@
+/* pantallaPrincipal.css */
+
+body {
+    background-color: rgb(255, 255, 255);
+    margin: 0;
+    padding: 0;
+}
+.contenedor {
+    margin-top: -10px;
+}
+.barraDeTitulo {
+    display: flex;
+    /* Establecer el contenedor principal como flex */
+    flex-direction: column;
+    /* Dirección de los elementos */
+    align-items: center;
+    /* Alinear elementos en el centro horizontal */
+    justify-content: center;
+    /* Alinear elementos en el centro vertical */
+    height: 12vh;
+    /* Establecer la altura del cuerpo al 100% del viewport */
+    width: 100%;
+    /* Agregar una línea divisoria */
+    border-bottom: 2px solid #040f4d;
+    /* Color de la línea divisoria (blanco) */
+    padding-top: 10px;
+    /* Agregar espacio sobre la línea */
+}
+
+/* Estilos para el título */
+h1.titulo {
+    font-size: 36px;
+    /* Tamaño del texto */
+    color: #3313e7;
+    /* Color del texto (azul oscuro) */
+    text-align: center;
+    /* Alineación del texto */
+    text-transform: uppercase;
+    /* Convertir texto a mayúsculas */
+    margin: 0px;
+    /* Margen inferior */
+}
+
+/* Estilos para el subtítulo */
+h2.subtitulo {
+    font-size: 24px;
+    /* Tamaño del texto */
+    color: #E74C3C;
+    /* Color del texto (rojo) */
+    text-align: center;
+    /* Alineación del texto */
+    font-style: italic;
+    /* Estilo de fuente cursiva */
+    margin: 0px;
+    /* Margen inferior */
+}
