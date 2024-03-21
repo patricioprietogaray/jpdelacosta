@@ -1,17 +1,35 @@
 //tabla.js
 
 import React, { useState } from 'react';
-import CrudUpdate from './crudUpdate'; // Importa el componente CrudUpdate
+
+// Importa el componente verRegistro
+import VerRegistro from './verRegistro';
+
+// importo el componente altaRegistro
+import AltaRegistro from "./altaRegistro";
+
 
 const Tabla = ({ coleccion }) => {
 
-    const [crudUpdateState, setCrudUpdateState] = useState(false);
+    const [verRegistroVentanaVisible, setVerRegistroVentanaVisible] = useState(false);
+    const [altaRegistroVentanaVisible, setAltaRegistroVentanaVisible] = useState(false);
     const [registroSeleccionado, setRegistroSeleccionado] = useState(null);
 
     const muestraRegistro = (listaTabla) => {
         // alert("muestra el registro: " + listaTabla._id);
-        setCrudUpdateState(true);
+        setVerRegistroVentanaVisible(true);
         setRegistroSeleccionado(listaTabla);
+    }
+
+    const altaDeRegistro = () => {
+        setAltaRegistroVentanaVisible(true);
+    }
+
+    // permite el cierre de la ventana desde el subcomponente 
+    //PARA TODOS LOS SUBCOMPONENTES!!!
+    const handlerCloseVentana=()=>{
+        setVerRegistroVentanaVisible(false);
+        setAltaRegistroVentanaVisible(false);
     }
 
     return (
@@ -34,18 +52,23 @@ const Tabla = ({ coleccion }) => {
                         </tr>
                     )))
                 : <tr>
-                            <td colspan="4" className='tablaUnicoTextoCentrado'>
-                                <button>SIN DATOS QUE MOSTRAR: AGREGAR UN NUEVO REGISTRO</button>
-                             </td>
+                        <td colspan="4" className='tablaUnicoTextoCentrado'>
+                            <button onClick={altaDeRegistro}>SIN DATOS QUE MOSTRAR: AGREGAR UN NUEVO REGISTRO</button>
+                        </td>
                     </tr>}
                 
                 </tbody>
             </table>
-            {
-                crudUpdateState && (
-                    <>
-                        <CrudUpdate registro={registroSeleccionado} />
-                    </>
+            { verRegistroVentanaVisible && (
+                <>
+                    <VerRegistro registro={registroSeleccionado} cerrarVentana={handlerCloseVentana} />
+                    {/* paso la funcion para que pueda interactuar desde el subcomponente */}
+                </>
+            )}
+            {altaRegistroVentanaVisible && (
+                <>
+                    <AltaRegistro cerrarVentana={handlerCloseVentana} />
+                </>
             )}
         </>
     );

@@ -1,3 +1,5 @@
+/* principalCuerpo.css */
+
 .contenedorCuerpo {
     background-color: rgba(8, 83, 243, 0.61);
     width: 90vw;
@@ -44,7 +46,8 @@ td {
 }
 
 tr:nth-child(odd) {
-    background-color: rgb(107, 2, 81);
+    background-color: rgb(96, 172, 243);
+    color: black;
 }
 
 .tablaUnicoTextoCentrado {
@@ -60,22 +63,17 @@ tr:nth-child(odd) {
     border: 1px solid;
 }
 
-/* .abogadoLectura {
-    background-color: rgb(7, 94, 215);
-    box-shadow: 10px 10px 10px black;
-    margin-top: -100px;
-} */
 
 /* CSS para la ventana emergente */
-.abogadoLectura {
+.ventanaEmergente {
     position: fixed;
-    top: 50%;
+    top: 55%;
     /* Centrar verticalmente */
     left: 50%;
     /* Centrar horizontalmente */
     transform: translate(-50%, -50%);
     background-color: rgb(7, 94, 215);
-    box-shadow: 10px 10px 10px black;
+    box-shadow: 10px 10px 15px rgb(0, 0, 0);
     z-index: 9999;
     /* Asegúrate de que la ventana emergente esté encima del contenido existente */
     padding: 20px;
@@ -106,3 +104,105 @@ tr:nth-child(odd) {
 .textoDerecha { text-align: right;}
 
 
+/* boton X para cerrar el formulario */
+/* Estilos para el contenedor de la "x" */
+.close-button {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-left: 620px;
+}
+
+/* Estilos para las líneas de la "x" */
+.close-button::before,
+.close-button::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background-color: black;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.close-button::after {
+    transform: translateX(-50%) rotate(-45deg);
+}
+
+/* Opcional: Estilos adicionales para hacer la "x" más atractiva */
+.close-button:hover::before,
+.close-button:hover::after {
+    background-color: rgb(255, 255, 255);
+}
+
+.barraTitulo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(5, 125, 223);
+    border-radius: 10px;
+    margin-bottom: 10px;
+
+}
+
+.barraTitulo h4 {
+    margin: 0;
+    width: 600px;
+    margin-left: 20px;
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+}
+
+.barraTitulo .close-button {
+    margin-left: 0px;
+    width: 50px;
+    /* background-color: rgba(102, 51, 153, 0.404); */
+}
+
+/* boton guardar */
+/* .botonGuardar {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition-duration: 0.4s;
+}
+
+.botonGuardar:hover {
+    background-color: #45a049;
+} */
+
+/* Icono de disquete */
+.disqueteIcono {
+    display: inline-block;
+    position: relative;
+    width: 120px;
+        /* Ajusta el tamaño según sea necesario */
+        height: 120px;
+        /* Ajusta el tamaño según sea necesario */
+        background-color: #4CAF50;
+        /* Color del fondo */
+        clip-path: polygon(20% 40%, 80% 10%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%);
+        /*                  h   v        h=horizontal    v=vertical*/
+}
+
+/* .disqueteIcono::before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 3px;
+    top: 3px;
+    left: 5px;
+} */

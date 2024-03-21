@@ -6,7 +6,7 @@ const BaseAbogado = () => {
    
     return (
         <div className='cuerpoAbogado'>
-            <h2>buscar un abogado en la base de datos</h2>
+            <h2>Buscar un abogado en la base de datos</h2>
             <Formulario />
         </div>
     );
