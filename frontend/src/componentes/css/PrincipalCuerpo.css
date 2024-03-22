@@ -183,18 +183,18 @@ tr:nth-child(odd) {
 } */
 
 /* Icono de disquete */
-.disqueteIcono {
+/* .disqueteIcono {
     display: inline-block;
     position: relative;
     width: 120px;
         /* Ajusta el tamaño según sea necesario */
-        height: 120px;
+        /* height: 120px; */
         /* Ajusta el tamaño según sea necesario */
-        background-color: #4CAF50;
+        /* background-color: #4CAF50; */
         /* Color del fondo */
-        clip-path: polygon(20% 40%, 80% 10%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%);
+        /* clip-path: polygon(20% 40%, 80% 10%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%); */ 
         /*                  h   v        h=horizontal    v=vertical*/
-}
+/* } */
 
 /* .disqueteIcono::before {
     content: '';
@@ -205,4 +205,4 @@ tr:nth-child(odd) {
     border-radius: 3px;
     top: 3px;
     left: 5px;
-} */
+}  */

@@ -9,13 +9,23 @@ const { validacionesGenerales, body } = require("../middleware/validacionesGener
 //const 
 
 // cRud Read
-routesAbogados.get("/", abogadosController.todosLosAbogados);
+// muestra todos los abogados
+routesAbogados.get("/todos/", abogadosController.todosLosAbogados);
+
+// buscar por cuit
+routesAbogados.get("/cuit/:cuit", middlewareCuitNumero, abogadosController.unAbogadoPorCuit);
+
+// buscar por nombre
+routesAbogados.get("/nombre/:nombre", abogadosController.abogadosPorNombre);
+
+// buscar por zona
+routesAbogados.get("/zona/:zona, ....");
 
 //routesAbogados.get("/:cuit", middlewareCuitNumero, abogadosController.todosLosAbogados);
 
 // Crud Create
 routesAbogados.post(
-    "/",
+    "/crear",
     //validar
     bdAbogCUIT, bdAbogNombre, bdAbogTomo, bdAbogFolio,
     bdAbogDomicilioReal, bdAbogTelefono, bdAbogCelular,
@@ -25,12 +35,11 @@ routesAbogados.post(
     // llamo a la funcion crear
     abogadosController.crearRegistroAbog);
 
-routesAbogados.put("/:cuit", middlewareCuitNumero, abogadosController.actualizarRegistroAbog);
+routesAbogados.put("/actualizar/:cuit", middlewareCuitNumero, abogadosController.actualizarRegistroAbog);
 
-routesAbogados.delete("/:cuitParaBorrar", middlewareCuitNumero, abogadosController.borrarRegistroAbog);
+routesAbogados.delete("/borrar/:cuitParaBorrar", middlewareCuitNumero, abogadosController.borrarRegistroAbog);
 
 
-// buscar por cuit
-routesAbogados.get("/:cuit", middlewareCuitNumero, abogadosController.unAbogadoPorCuit);
+
 
 module.exports = routesAbogados;
