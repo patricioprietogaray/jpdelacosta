@@ -19,7 +19,7 @@ routesAbogados.get("/cuit/:cuit", middlewareCuitNumero, abogadosController.unAbo
 routesAbogados.get("/nombre/:nombre", abogadosController.abogadosPorNombre);
 
 // buscar por zona
-routesAbogados.get("/zona/:zona, ....");
+routesAbogados.get("/zona/:zona", abogadosController.abogadosPorZona);
 
 //routesAbogados.get("/:cuit", middlewareCuitNumero, abogadosController.todosLosAbogados);
 

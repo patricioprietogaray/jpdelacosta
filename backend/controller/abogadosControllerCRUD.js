@@ -48,24 +48,6 @@ const unAbogadoPorCuit = async (req, res) => {
     }
 }
 
-// const abogadosPorNombre = async (req, res) => {
-//     try {
-//         const { abogadosNombre } = await abogadoSchema.includes(req.params.nombre);
-        
-//             // .filter(
-//             // {bd_abog_nombre: req.params.nombre}
-//         // );
-//         if (abogadosNombre) {
-//             // encontró a los abogados
-//             res.status(200).json({ abogados_collections: abogadosNombre , msg: "Proceso exitoso!" });
-//         } else {
-//             res.status(404).json({ abogados_collections: [], msg: "Sin datos que mostrar!" });
-//         }
-        
-//     } catch (error) {
-//         res.status(500).json({ abogados_collections: [], msg: "Sin conexión al servidor!" });
-//     }
-// }
 
 const abogadosPorNombre = async (req, res) => {
     try {
@@ -84,7 +66,23 @@ const abogadosPorNombre = async (req, res) => {
     }
 }
 
+const abogadosPorZona = async (req, res) => {
+    try {
+        // busqueda de un texto dentro de una cadena de caracteres
+        const regex = new RegExp(req.params.zona, 'i'); // 'i' para hacer la búsqueda insensible a mayúsculas y minúsculas
+        const abogadosZona = await abogadoSchema.find({ bd_abog_zona: regex });
+        
+        if (abogadosZona.length > 0) {
+            res.status(200).json({ abogados_collections: abogadosZona , msg: "Proceso exitoso!" });
+        } else {
+            res.status(404).json({ abogados_collections: [], msg: "Sin datos que mostrar!" });
+        }
+        
+    } catch (error) {
+        res.status(500).json({ abogados_collections: [], msg: "Sin conexión al servidor!" });
+    }
 
+}
 
 // crUd -> Update
 // se puede acutalizar cualquier atributo cuit incluido (por no ser el id)
@@ -155,5 +153,6 @@ const borrarRegistroAbog = async (req, res) => {
 module.exports = {
     crearRegistroAbog, todosLosAbogados,
     actualizarRegistroAbog, borrarRegistroAbog,
-    unAbogadoPorCuit, abogadosPorNombre
+    unAbogadoPorCuit, abogadosPorNombre,
+    abogadosPorZona
 }
