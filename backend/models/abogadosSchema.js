@@ -22,7 +22,7 @@ const abogado_schema_const = new Schema(
         bd_abog_telefono_fijo: { type: String },
         bd_abog_zona: { type: String },
         bd_abog_domicilio_legal: { type: String },
-        bd_agog_usuario_mev: {type: String}        
+        bd_abog_usuario_mev: {type: String}        
     }
 );
 

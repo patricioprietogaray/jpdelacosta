@@ -6,7 +6,7 @@ body {
     padding: 0;
 }
 .contenedor {
-    margin-top: -10px;
+    margin-top: 0px;
 }
 .barraDeTitulo {
     display: flex;

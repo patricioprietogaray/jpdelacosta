@@ -33,7 +33,7 @@ const todosLosAbogados = async (_, res) => {
  
 const unAbogadoPorCuit = async (req, res) => {
     try {
-        const unSoloAbogado = await abogadoSchema.findOne(
+        const unSoloAbogado = await abogadoSchema.find(
             {bd_abog_cuit: Number(req.params.cuit)}
         );
         if (unSoloAbogado) {

@@ -1,10 +1,10 @@
 import React from "react";
-import Principal from "./componentes/principal/principal";
+import BasePrincipal from "./componentes/base/basePrincipal";
 
 function App() {
   return (
     <>
-      <Principal />
+      <BasePrincipal />
     </>    
   );
 }
