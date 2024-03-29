@@ -1,7 +1,8 @@
 //formAbogAlta.js
 
-import React from 'react';
+import React, { useState } from 'react';
 import '../css/PrincipalCuerpo.css';
+import axios from 'axios';
 
 const FormAbogAlta = ({ cerrarVentana }) => {
     
@@ -11,7 +12,54 @@ const FormAbogAlta = ({ cerrarVentana }) => {
         // alert("cierro ventana (formAbogAlta)");
     }
 
+    //atributos
+    const [nombreParaAgregar, setNombreParaAgregar] = useState('');
+    const [cuitParaAgregar, setCuitParaAgregar] = useState('');
 
+    //errores
+    const [mensajeParaMostrar, setMensajeParaMostrar] = useState('');
+    const [errorParaMostrar, setErrorParaMostrar] = useState('');
+
+    //al modificar el input nombre
+    const handleNombreChange = (event) => {
+        setNombreParaAgregar(event.target.value);
+    }
+
+    const handleCuitChange = (event) => {
+        setCuitParaAgregar(event.target.value);
+    }
+
+    //nuevo registro
+    const handleSubmit = async (event) => {
+        //no acutliza el form para no perder info
+        event.preventDefault(); 
+        try {
+            const respuestaAlta = await axios.post('http://localhost:3001/abogados/crear', {
+                //cargo los atributos
+                bd_abog_cuit: Number(cuitParaAgregar),
+                bd_abog_nombre: String(nombreParaAgregar),
+                bd_abog_tomo: 1,
+                bd_abog_folio: 111,
+                bd_abog_asesor: true,
+                bd_abog_defensor: true,
+                bd_abog_domicilio_electronico: '27284460528@notificaciones.scba.gov.ar',
+                bd_abog_email: 'marimerimoli123@gmail.com',
+                bd_abog_horario_atencion:'Lun a Vie 10 a 12 hs',
+                bd_abog_domicilio_real: 'Espora 123 Mar de Ajó',
+                bd_abog_telefono_fijo: '02257 421321',
+                bd_abog_celular: '2257 635189',
+                bd_abog_domicilio_legal: 'Espora 123 Mar de Ajó',
+                bd_abog_zona: 'sur',
+                bd_abog_usuario_mev: 'mari123'
+            });
+            //muestro el mensaje configurado desde el servidor
+            setMensajeParaMostrar(respuestaAlta.data.msg);
+            setErrorParaMostrar('');
+        } catch (error) {
+            setMensajeParaMostrar('');
+            setErrorParaMostrar('Error al ingresar el nuevo registro: ' + error.message);
+        }
+    }
     return (
         <div className='ventanaEmergente'>
             <section className='barraTitulo'>
@@ -23,7 +71,38 @@ const FormAbogAlta = ({ cerrarVentana }) => {
                 <article className='close-button' onClick={()=>handlerVolverClick('ventanaNuevoRegistro')}>
                 </article>
             </section>
-            
+            <form onSubmit={handleSubmit}>
+                <section>
+                    <article>
+                        <label
+                            htmlFor='nombre'>
+                            APELLIDOS y Nombres:
+                        </label>
+                        <input
+                            className='anchoGrande espaciado'
+                            id='nombre'
+                            value={nombreParaAgregar}
+                            onChange={handleNombreChange}    
+                        />
+                    </article>
+                    <article>
+                        <label
+                            htmlFor='cuit'>
+                            C.U.I.T.:
+                        </label>
+                        <input
+                            className='anchoMediano espaciado'
+                            id='cuit'
+                            value={cuitParaAgregar}
+                            onChange={handleCuitChange}    
+                        />
+                    </article>
+                </section>
+                <button type='submit'>Agregar</button>
+            </form>
+            {/* muestra los mensajes de error */}
+            {mensajeParaMostrar && <p>{mensajeParaMostrar}</p>}
+            {errorParaMostrar && <p>{errorParaMostrar}</p>}
         </div>
     );
 }
