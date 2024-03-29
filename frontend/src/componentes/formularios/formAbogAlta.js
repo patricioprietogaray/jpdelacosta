@@ -12,46 +12,74 @@ const FormAbogAlta = ({ cerrarVentana }) => {
         // alert("cierro ventana (formAbogAlta)");
     }
 
+    const initialState = {
+            bd_abog_cuit: 0,
+            bd_abog_nombre: '',
+            bd_abog_tomo: 0,
+            bd_abog_folio: 0,
+            bd_abog_asesor: false,
+            bd_abog_defensor: false,
+            bd_abog_domicilio_electronico: '',
+            bd_abog_email: '',
+            bd_abog_horario_atencion:'',
+            bd_abog_domicilio_real: '',
+            bd_abog_telefono_fijo: '',
+            bd_abog_celular: '',
+            bd_abog_domicilio_legal: '',
+            bd_abog_zona: '',
+            bd_abog_usuario_mev: ''
+        }
+
     //atributos
-    const [nombreParaAgregar, setNombreParaAgregar] = useState('');
-    const [cuitParaAgregar, setCuitParaAgregar] = useState('');
+    const [nuevoAbogado, setNuevoAbogado] = useState(initialState);
+    // const [nombreParaAgregar, setNombreParaAgregar] = useState('');
+    // const [cuitParaAgregar, setCuitParaAgregar] = useState('');
 
     //errores
     const [mensajeParaMostrar, setMensajeParaMostrar] = useState('');
     const [errorParaMostrar, setErrorParaMostrar] = useState('');
 
-    //al modificar el input nombre
-    const handleNombreChange = (event) => {
-        setNombreParaAgregar(event.target.value);
+    //al modificar el input (todos)
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setNuevoAbogado({ ...nuevoAbogado, [name]: value });
     }
+    
+    // const handleNombreChange = (event) => {
+    //     setNombreParaAgregar(event.target.value);
+    // }
 
-    const handleCuitChange = (event) => {
-        setCuitParaAgregar(event.target.value);
-    }
+    // const handleCuitChange = (event) => {
+    //     setCuitParaAgregar(event.target.value);
+    // }
 
     //nuevo registro
     const handleSubmit = async (event) => {
         //no acutliza el form para no perder info
         event.preventDefault(); 
         try {
-            const respuestaAlta = await axios.post('http://localhost:3001/abogados/crear', {
-                //cargo los atributos
-                bd_abog_cuit: Number(cuitParaAgregar),
-                bd_abog_nombre: String(nombreParaAgregar),
-                bd_abog_tomo: 1,
-                bd_abog_folio: 111,
-                bd_abog_asesor: true,
-                bd_abog_defensor: true,
-                bd_abog_domicilio_electronico: '27284460528@notificaciones.scba.gov.ar',
-                bd_abog_email: 'marimerimoli123@gmail.com',
-                bd_abog_horario_atencion:'Lun a Vie 10 a 12 hs',
-                bd_abog_domicilio_real: 'Espora 123 Mar de Ajó',
-                bd_abog_telefono_fijo: '02257 421321',
-                bd_abog_celular: '2257 635189',
-                bd_abog_domicilio_legal: 'Espora 123 Mar de Ajó',
-                bd_abog_zona: 'sur',
-                bd_abog_usuario_mev: 'mari123'
-            });
+            const respuestaAlta = await axios.post(
+                'http://localhost:3001/abogados/crear', nuevoAbogado);
+            
+            
+            // const respuestaAlta = await axios.post('http://localhost:3001/abogados/crear', {
+            //     //cargo los atributos
+            //     bd_abog_cuit: Number(cuitParaAgregar),
+            //     bd_abog_nombre: String(nombreParaAgregar),
+            //     bd_abog_tomo: 1,
+            //     bd_abog_folio: 111,
+            //     bd_abog_asesor: true,
+            //     bd_abog_defensor: true,
+            //     bd_abog_domicilio_electronico: '27284460528@notificaciones.scba.gov.ar',
+            //     bd_abog_email: 'marimerimoli123@gmail.com',
+            //     bd_abog_horario_atencion:'Lun a Vie 10 a 12 hs',
+            //     bd_abog_domicilio_real: 'Espora 123 Mar de Ajó',
+            //     bd_abog_telefono_fijo: '02257 421321',
+            //     bd_abog_celular: '2257 635189',
+            //     bd_abog_domicilio_legal: 'Espora 123 Mar de Ajó',
+            //     bd_abog_zona: 'sur',
+            //     bd_abog_usuario_mev: 'mari123'
+            // });
             //muestro el mensaje configurado desde el servidor
             setMensajeParaMostrar(respuestaAlta.data.msg);
             setErrorParaMostrar('');
@@ -72,32 +100,92 @@ const FormAbogAlta = ({ cerrarVentana }) => {
                 </article>
             </section>
             <form onSubmit={handleSubmit}>
-                <section>
-                    <article>
-                        <label
-                            htmlFor='nombre'>
-                            APELLIDOS y Nombres:
-                        </label>
-                        <input
-                            className='anchoGrande espaciado'
-                            id='nombre'
-                            value={nombreParaAgregar}
-                            onChange={handleNombreChange}    
-                        />
-                    </article>
-                    <article>
-                        <label
-                            htmlFor='cuit'>
-                            C.U.I.T.:
-                        </label>
-                        <input
-                            className='anchoMediano espaciado'
-                            id='cuit'
-                            value={cuitParaAgregar}
-                            onChange={handleCuitChange}    
-                        />
-                    </article>
-                </section>
+                <section className='seccionDisplayFlex'>
+                    <div>
+                        <label>Nombres y Apellidos: </label>
+                        <input className='anchoGrande espaciado' name='bd_abog_nombre' value={nuevoAbogado.bd_abog_nombre} onChange={handleChange} />
+                    </div>
+                <div>
+                    <label>Tomo: </label>
+                        <input className='anchoChico textoDerecha espaciado' name='bd_abog_tomo' value={nuevoAbogado.bd_abog_tomo} onChange={handleChange} />
+                </div>
+                <div>
+                    <label>Folio: </label>
+                    <input className='anchoChico textoDerecha espaciado' name='bd_abog_folio' value={nuevoAbogado.bd_abog_folio} onChange={handleChange} />
+                </div>
+                <div>
+                    <label>C.U.I.T.: </label>
+                    <input className='anchoMediano espaciado' name='bd_abog_cuit' value={nuevoAbogado.bd_abog_cuit} onChange={handleChange}  />
+                </div>
+            </section>
+            <section className='seccionDisplayFlex'>
+                <div>
+                    <label>Domicilio Real: </label>
+                    <input className='anchoGrandisimo espaciado' name='bd_abog_domicilio_real' value={nuevoAbogado.bd_abog_domicilio_real} onChange={handleChange} />
+                </div>
+                <div>
+                    <label>Teléfono Fijo: </label>
+                    <input className='anchoMediano espaciado' name='bd_abog_telefono_fijo' value={nuevoAbogado.bd_abog_telefono_fijo} onChange={handleChange} />
+                </div>
+            </section>
+            <section className='seccionDisplayFlex'>
+                <div>
+                    <label>Celular: </label>
+                    <input className='anchoMediano espaciado' name='bd_abog_celular' value={nuevoAbogado.bd_abog_celular} onChange={handleChange} />
+                </div>
+                <div>
+                    <label>E - Mail: </label>
+                    <input className='anchoGrande espaciado' name='bd_abog_email' value={nuevoAbogado.bd_abog_email} onChange={handleChange} />
+                </div>
+            </section>
+            <section className='seccionDisplayFlex'>
+                <div>
+                    <label>Domiclio Electrónico: </label>
+                    <input className='anchoGrande espaciado' name='bd_abog_domicilio_electronico' value={nuevoAbogado.bd_abog_domicilio_electronico} onChange={handleChange} />
+                </div>
+                <div>
+                    <label>Asesor: </label>
+                    <select className='anchoChicoOpcion espaciado' name='bd_abog_asesor' value={nuevoAbogado.bd_abog_asesor} onChange={handleChange} >
+                        <option value='true'>SI</option>
+                        <option value='false'>NO</option>
+                    </select>
+                </div> 
+                <div>
+                    <label>Defensor: </label>
+                    <select className='anchoChicoOpcion espaciado' name='bd_abog_defensor' value={nuevoAbogado.bd_abog_defensor} onChange={handleChange} >
+                        <option value='true'>SI</option>
+                        <option value='false'>NO</option>
+                    </select>
+                </div> 
+            </section>            
+            <section className='seccionDisplayFlex'>
+                <div>
+                    <label>Domicilio Legal: </label>
+                    <input className='anchoGrandisimo espaciado' name='bd_abog_domicilio_legal' value={nuevoAbogado.bd_abog_domicilio_legal} onChange={handleChange} />
+                </div>
+                <div>
+                    <label>Zona de Sorteo: </label>
+                    <select value={nuevoAbogado.bd_abog_zona} name='bd_abog_zona' onChange={handleChange} >
+                        <option value='norte'>Zona Norte (San Clemente del Tuyú)</option>
+                        <option value='centro'>Zona Centro (Las Toninas - Costa del Este)</option>
+                        <option value='sur'>Zona Sur (Aguas Verdes - Costa Esmeralda)</option>
+                    </select>
+                </div>
+            </section>
+            <section className='seccionDisplayFlex'>
+                <div>
+                    <label>Horario de Atención: </label>
+                    <input className='anchoGrandisimo' name='bd_abog_horario_atencion' value={nuevoAbogado.bd_abog_horario_atencion} onChange={handleChange} />
+                </div>
+                <div>
+                    <label>Usuario M.E.V.: </label>
+                    <input className='anchoMediano' name='bd_abog_usuario_mev' value={nuevoAbogado.bd_abog_usuario_mev} onChange={handleChange} />
+                </div>
+            </section>
+
+
+
+
                 <button type='submit'>Agregar</button>
             </form>
             {/* muestra los mensajes de error */}
