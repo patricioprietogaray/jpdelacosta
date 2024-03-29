@@ -32,12 +32,10 @@ const FormAbogAlta = ({ cerrarVentana }) => {
 
     //atributos
     const [nuevoAbogado, setNuevoAbogado] = useState(initialState);
-    // const [nombreParaAgregar, setNombreParaAgregar] = useState('');
-    // const [cuitParaAgregar, setCuitParaAgregar] = useState('');
-
     //errores
     const [mensajeParaMostrar, setMensajeParaMostrar] = useState('');
     const [errorParaMostrar, setErrorParaMostrar] = useState('');
+    const [presionoCancelar, setPresionoCancelar] = useState(false);
 
     //al modificar el input (todos)
     const handleChange = (event) => {
@@ -45,13 +43,10 @@ const FormAbogAlta = ({ cerrarVentana }) => {
         setNuevoAbogado({ ...nuevoAbogado, [name]: value });
     }
     
-    // const handleNombreChange = (event) => {
-    //     setNombreParaAgregar(event.target.value);
-    // }
-
-    // const handleCuitChange = (event) => {
-    //     setCuitParaAgregar(event.target.value);
-    // }
+    const limpiarInputs = () => {
+        setNuevoAbogado(initialState);
+        setPresionoCancelar(true);
+    }
 
     //nuevo registro
     const handleSubmit = async (event) => {
@@ -60,26 +55,6 @@ const FormAbogAlta = ({ cerrarVentana }) => {
         try {
             const respuestaAlta = await axios.post(
                 'http://localhost:3001/abogados/crear', nuevoAbogado);
-            
-            
-            // const respuestaAlta = await axios.post('http://localhost:3001/abogados/crear', {
-            //     //cargo los atributos
-            //     bd_abog_cuit: Number(cuitParaAgregar),
-            //     bd_abog_nombre: String(nombreParaAgregar),
-            //     bd_abog_tomo: 1,
-            //     bd_abog_folio: 111,
-            //     bd_abog_asesor: true,
-            //     bd_abog_defensor: true,
-            //     bd_abog_domicilio_electronico: '27284460528@notificaciones.scba.gov.ar',
-            //     bd_abog_email: 'marimerimoli123@gmail.com',
-            //     bd_abog_horario_atencion:'Lun a Vie 10 a 12 hs',
-            //     bd_abog_domicilio_real: 'Espora 123 Mar de Ajó',
-            //     bd_abog_telefono_fijo: '02257 421321',
-            //     bd_abog_celular: '2257 635189',
-            //     bd_abog_domicilio_legal: 'Espora 123 Mar de Ajó',
-            //     bd_abog_zona: 'sur',
-            //     bd_abog_usuario_mev: 'mari123'
-            // });
             //muestro el mensaje configurado desde el servidor
             setMensajeParaMostrar(respuestaAlta.data.msg);
             setErrorParaMostrar('');
@@ -187,10 +162,16 @@ const FormAbogAlta = ({ cerrarVentana }) => {
 
 
                 <button type='submit'>Agregar</button>
+                {/* ()=>funcionComoReferencia */}
+                <button onClick={()=>limpiarInputs()}>Cancelar</button>
+
+                {/* llamoAunaFuncio */}
+                {/* <button onClick={limpiarInputs}>Cancelar</button> */}
+
             </form>
             {/* muestra los mensajes de error */}
             {mensajeParaMostrar && <p>{mensajeParaMostrar}</p>}
-            {errorParaMostrar && <p>{errorParaMostrar}</p>}
+            {errorParaMostrar && presionoCancelar === false && <p>{errorParaMostrar}</p>}
         </div>
     );
 }
