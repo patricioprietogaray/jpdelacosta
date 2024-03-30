@@ -41,7 +41,7 @@ const FormAbogAlta = ({ cerrarVentana }) => {
     const handleChange = (event) => {
         const { name, value } = event.target;
         setNuevoAbogado({ ...nuevoAbogado, [name]: value });
-    }
+        }
     
     const limpiarInputs = () => {
         setNuevoAbogado(initialState);
@@ -53,8 +53,19 @@ const FormAbogAlta = ({ cerrarVentana }) => {
         //no acutliza el form para no perder info
         event.preventDefault(); 
         try {
+            // Checkbox: Verifica y ajusta los valores booleanos 
+            // según sea necesario antes de enviarlos al servidor
+            const datasEnviados = {
+                ...nuevoAbogado,
+                bd_abog_asesor: nuevoAbogado.bd_abog_asesor === true ? true : false,
+                bd_abog_defensor: nuevoAbogado.bd_abog_defensor === true ? true : false,
+            };
+            
             const respuestaAlta = await axios.post(
-                'http://localhost:3001/abogados/crear', nuevoAbogado);
+                'http://localhost:3001/abogados/crear', datasEnviados);
+                    
+            // const respuestaAlta = await axios.post(
+                // 'http://localhost:3001/abogados/crear', nuevoAbogado);
             //muestro el mensaje configurado desde el servidor
             setMensajeParaMostrar(respuestaAlta.data.msg);
             setErrorParaMostrar('');
@@ -118,7 +129,7 @@ const FormAbogAlta = ({ cerrarVentana }) => {
                     <label>Domiclio Electrónico: </label>
                     <input className='anchoGrande espaciado' name='bd_abog_domicilio_electronico' value={nuevoAbogado.bd_abog_domicilio_electronico} onChange={handleChange} />
                 </div>
-                <div>
+                {/* <div>
                     <label>Asesor: </label>
                     <select className='anchoChicoOpcion espaciado' name='bd_abog_asesor' value={nuevoAbogado.bd_abog_asesor} onChange={handleChange} >
                         <option value='true'>SI</option>
@@ -131,7 +142,28 @@ const FormAbogAlta = ({ cerrarVentana }) => {
                         <option value='true'>SI</option>
                         <option value='false'>NO</option>
                     </select>
-                </div> 
+                </div>  */}
+                <div>
+                    <label>Asesor </label>
+                    <input
+                        type="checkbox"
+                        name="bd_abog_asesor"
+                        checked={nuevoAbogado.bd_abog_asesor}
+                        onChange={(event)=> setNuevoAbogado({...nuevoAbogado, bd_abog_asesor: event.target.checked})}
+                            // onChange={handleChange}
+                    />
+                </div>
+                <div>
+                    <label>Defensor </label>
+                    <input
+                        type="checkbox"
+                        name="bd_abog_defensor"
+                        checked={nuevoAbogado.bd_abog_defensor}
+                        // permite que el check se pueda visualizar correctamente (aparece o desaparece)    
+                        onChange={(event)=> setNuevoAbogado({...nuevoAbogado, bd_abog_defensor: event.target.checked})}    
+                        //onChange={handleChange}
+                    />
+                </div>    
             </section>            
             <section className='seccionDisplayFlex'>
                 <div>

@@ -150,15 +150,31 @@ const FormAbogEditar = ({ registro, cerrarVentana }) => {
     //     setCargoRegistros({ ...cargoRegistros, [name]: value });
     // }
 
+//     const handleChange = (event) => {
+//     const { name, value } = event.target;
+//     setCargoRegistros(prevState => ({
+//         ...prevState,
+//         [name]: value
+//     }), () => {
+//         alert("value: " + value);
+//     });
+// }
+
     const handleChange = (event) => {
-    const { name, value } = event.target;
-    setCargoRegistros(prevState => ({
-        ...prevState,
-        [name]: value
-    }), () => {
-        alert("value: " + value);
-    });
-}
+        const { name, value, type, checked } = event.target;
+        
+        if (type === 'checkbox') {
+            setCargoRegistros(prevState => ({
+                ...prevState,
+                [name]: checked
+            }));
+        } else {
+            setCargoRegistros(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
+    }
 
 
     // const handleChange = (event => {
@@ -266,20 +282,42 @@ const FormAbogEditar = ({ registro, cerrarVentana }) => {
                     <label>Domiclio Electrónico: </label>
                     <input className='anchoGrande espaciado' name='domicilio_electronico' value={cargoRegistros.domicilio_electronico} onChange={handleChange} readOnly={isReadOnly} disabled={isDisabled}/>
                 </div>
-                <div>
+                {/* <div>
                     <label>Asesor: </label>
                     <select className='anchoChicoOpcion espaciado' name='asesor' value={cargoRegistros.asesor} onChange={handleChange} readOnly={isReadOnly} disabled={isDisabled}>
                         <option value='true'>SI</option>
                         <option value='false'>NO</option>
                     </select>
-                </div> 
+                </div>  */}
                 <div>
+                    <label>Asesor </label>
+                    <input
+                        type="checkbox"
+                        name="asesor"
+                        checked={cargoRegistros.asesor}
+                        onChange={handleChange}
+                        readOnly={isReadOnly}
+                        disabled={isDisabled}
+                    />
+                </div>
+                {/* <div>
                     <label>Defensor: </label>
                     <select className='anchoChicoOpcion espaciado' name='defensor' value={cargoRegistros.defensor} onChange={handleChange} readOnly={isReadOnly} disabled={isDisabled}>
                         <option value='true'>SI</option>
                         <option value='false'>NO</option>
                     </select>
-                </div> 
+                </div>  */}
+                <div>
+                    <label>Defensor </label>
+                    <input
+                        type="checkbox"
+                        name="defensor"
+                        checked={cargoRegistros.defensor}
+                        onChange={handleChange}
+                        readOnly={isReadOnly}
+                        disabled={isDisabled}
+                    />
+                </div>
             </section>            
             <section className='seccionDisplayFlex'>
                 <div>
