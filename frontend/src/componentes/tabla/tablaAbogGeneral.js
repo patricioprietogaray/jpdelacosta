@@ -50,20 +50,31 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
         setNuevoRegistro(true);
     }
 
+    const actualizarListaAbogados = async () => {
+        try {
+            const BD = await axios.get(
+                `http://localhost:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/todos`
+            );
+            setAbogadosDB(BD.data.abogados_collections);
+        } catch (error) {
+            setMensajeError('La conexion fue rechazada: ' + error.message);
+        }
+    }
+
     useEffect(() => {
         const obtenerBD = async () => {
             try {
                 //muestro todos los abogados
                 switch (atributo) {
                     case '':
-                        setResp("no hay datos pasados!, muestro todos la coleccion");
+                        // setResp("no hay datos pasados!, muestro todos la coleccion");
                         const BD = await axios.get(
                             `http://localhost:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/todos`
                         );
                         setAbogadosDB(BD.data.abogados_collections);
                         break;
                     default:
-                        setResp(`el atributo es ${atributo}`);
+                        // setResp(`el atributo es ${atributo}`);
                         if (atributo === 'bd_abog_cuit') {
                             const BDatributoCuit = await axios.get(
                                 `http://localhost:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/cuit/${textoBusqueda}`
@@ -137,7 +148,11 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
                 cerrarVentana={handlerCloseVentana} />} */}
             {verRegistroVentanaVisible && 
                 // envio la funcion cerrarVentana al componente sin parametros
-                <FormAbogEditar registro={registroSeleccionado} cerrarVentana={handlerCloseVentana} />
+                <FormAbogEditar
+                    registro={registroSeleccionado}
+                    cerrarVentana={handlerCloseVentana}
+                    actualizarListaAbogados={actualizarListaAbogados}
+                />
             }
         </div>
     );

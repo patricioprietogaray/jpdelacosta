@@ -2,8 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import '../css/PrincipalCuerpo.css';
+import axios from 'axios';
 
-const FormAbogEditar = ({ registro, cerrarVentana }) => {
+
+const FormAbogEditar = ({ registro, cerrarVentana, actualizarListaAbogados }) => {
 
     const [cargoRegistros, setCargoRegistros] = useState({
         nombre: registro.bd_abog_nombre,
@@ -47,6 +49,9 @@ const FormAbogEditar = ({ registro, cerrarVentana }) => {
     const [botonGuardar, setBotonGuardar] = useState(false);
     const [botonCancelar, setBotonCancelar] = useState(false);
     const [botonBorrarDefinitivamente, setBotonBorrarDefinitivamente] = useState(false);
+    const [abogadoSeleccionado, setAbogadoSeleccionado] = useState('');
+    const [mensajeParaMostrar, setMensajeParaMostrar] = useState('');
+    const [errorParaMostrar, setErrorParaMostrar] = useState('');
 
     //atributos inputs
     const [isReadOnly, setIsReadOnly] = useState(true);
@@ -75,7 +80,7 @@ const FormAbogEditar = ({ registro, cerrarVentana }) => {
 
     }
 
-     const handlerBorrar = () => {
+    const handlerBorrar = () => {
         // alert('Presiono borrar');
         //muestro botones
         setBotonEditar(false);
@@ -110,8 +115,19 @@ const FormAbogEditar = ({ registro, cerrarVentana }) => {
         setIsDisabled(true);        
     }
 
-    const handlerBorrarDefinitivamente = () => {
-        // alert('Borrado definitivo');
+    const handlerBorrarDefinitivamente = async() => {
+        // alert('Borrado definitivo: el id es '+registro._id);
+        try {
+            const response = await axios.delete(`http://localhost:3001/abogados/borrar/${registro.bd_abog_cuit}`);
+            setMensajeParaMostrar(response.data.msg);
+            setErrorParaMostrar('');
+            // Llama a la función de actualización de la lista de abogados
+            actualizarListaAbogados();
+            handlerVolverClick('ventanaVerRegistro');
+        } catch (error) {
+            setMensajeParaMostrar('');
+            setErrorParaMostrar('Error al borrar el abogado: ' + error.message);
+        }
         setBotonEditar(true);
         setBotonBorrar(true);
         setBotonGuardar(false);
@@ -348,10 +364,10 @@ const FormAbogEditar = ({ registro, cerrarVentana }) => {
                 {botonBorrar && <button onClick={handlerBorrar}>Borrar</button>}
                 {botonGuardar && <button onClick={handlerGuardar}>Guardar</button>}
                 {botonBorrarDefinitivamente && <button onClickCapture={handlerBorrarDefinitivamente}>Borrar Definitivamente</button>}
-                {botonCancelar && <button onClick={handlerCancelar}>Cancelar</button>}
-            </div>
-            
-            
+                {/* {botonBorrarDefinitivamente && <formAbogBorrar />} */}
+                {/* {botonBorrarDefinitivamente && <formAbogBorrar />} Renderizar el componente formAbogBorrar */}
+                {/* {botonCancelar && <button onClick={handlerCancelar}>Cancelar</button>} */}
+            </div>        
         </div>
     );
 }
