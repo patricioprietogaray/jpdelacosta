@@ -35,14 +35,10 @@ const FormAbogConsulta = ({ registro, cerrarVentanaConsultaDesdeGeneral }) => {
         setVerVentanaEdicion(true);
     }
 
-
-
-
-
     const [cargoRegistros, setCargoRegistros] = useState({ ...registro[0] });
 
 
-    console.log(cargoRegistros.nombre);
+    // console.log(cargoRegistros.nombre);
     //botones
     const [botonEditar, setBotonEditar] = useState(true);
     const [botonBorrar, setBotonBorrar] = useState(true);
@@ -71,35 +67,6 @@ const FormAbogConsulta = ({ registro, cerrarVentanaConsultaDesdeGeneral }) => {
     
     //************************************************************************** */
 
-
-    // const handlerVolverClickEditar = (ventanaIdentificada) => {
-    //     cerrarVentanaEdicionDesdeConsulta(ventanaIdentificada);
-    // }
-
-
-    // PEGA EL SALTO PARA TABLAABOGGENERAL POR CADA COMPONENTE CREAR UNA
-    // FUNCION DE CIERRE DE VENTANA
-    // const handlerCerrarVentanaConsulta = (ventanaIdentificada) => {
-    //     switch (ventanaIdentificada) {
-    //         case 'verVentanaEdicion':
-    //             setVerVentanaEdicion(false);
-    //             alert("cierro ventana consulta (que fue llamada por ver registro (tablaAbogGeneral))")
-    //             break;
-    //         case 'verVentanaBorrar':
-    //             setVerVentanaBorrar(false);
-    //             alert("cierro ventana nuevo registro (tablaAbogGeneral)")
-    //             break;
-    //         default:
-    //             break;
-    //     }
-        // setVerRegistroVentanaVisible(false);
-        // setNuevoRegistro(false);
-        // crear control individual de ventanas emergentes
-    //}
-
-    // const muestraEdicion = (registro) => {
-    //     setVerVentanaEdicion(true);
-    //}
 
     return (
         <div className='ventanaEmergenteConsulta'>
@@ -153,8 +120,6 @@ const FormAbogConsulta = ({ registro, cerrarVentanaConsultaDesdeGeneral }) => {
                 </div>
                 )
             }
-            
-            
         </div>
     );
 }

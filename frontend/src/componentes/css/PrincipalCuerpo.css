@@ -27,8 +27,6 @@
     padding: 5px 20px;
 }
 
-
-
 .agregarRegistro {
     margin-left: 15px;
     background-color: rgb(255, 255, 255);
@@ -36,7 +34,6 @@
     font-weight: 700;
     border: 1px solid;
 }
-
 
 /* CSS para la ventana emergente */
 .ventanaEmergente {
@@ -125,7 +122,6 @@
 
 .textoDerecha { text-align: right;}
 
-
 /* boton X para cerrar el formulario */
 /* Estilos para el contenedor de la "x" */
 .close-button {
@@ -183,48 +179,3 @@
     width: 50px;
     /* background-color: rgba(102, 51, 153, 0.404); */
 }
-
-/* boton guardar */
-/* .botonGuardar {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 8px;
-    transition-duration: 0.4s;
-}
-
-.botonGuardar:hover {
-    background-color: #45a049;
-} */
-
-/* Icono de disquete */
-/* .disqueteIcono {
-    display: inline-block;
-    position: relative;
-    width: 120px;
-        /* Ajusta el tamaño según sea necesario */
-        /* height: 120px; */
-        /* Ajusta el tamaño según sea necesario */
-        /* background-color: #4CAF50; */
-        /* Color del fondo */
-        /* clip-path: polygon(20% 40%, 80% 10%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%); */ 
-        /*                  h   v        h=horizontal    v=vertical*/
-/* } */
-
-/* .disqueteIcono::before {
-    content: '';
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: white;
-    border-radius: 3px;
-    top: 3px;
-    left: 5px;
-}  */
