@@ -1,3 +1,5 @@
+//abogadoRouter.js
+
 const express = require("express");
 const routesAbogados = express.Router();
 const abogadosController = require("../controller/abogadosControllerCRUD");
@@ -35,7 +37,17 @@ routesAbogados.post(
     // llamo a la funcion crear
     abogadosController.crearRegistroAbog);
 
-routesAbogados.put("/actualizar/:cuit", middlewareCuitNumero, abogadosController.actualizarRegistroAbog);
+    //Edicion de un registro
+// routesAbogados.put("/actualizar/:cuit", middlewareCuitNumero, abogadosController.actualizarRegistroAbog);
+
+routesAbogados.put("/actualizar/:cuit", middlewareCuitNumero, 
+    bdAbogCUIT, bdAbogNombre, bdAbogTomo, bdAbogFolio,
+    bdAbogDomicilioReal, bdAbogTelefono, bdAbogCelular,
+    bdAbogCorreoElectrónico, bdAbogDomicilioElectronico, bdAbogAsesor,
+    bdAbogDefensor, bdAbogDomicilioLegal, bdAbogHorarioAtencion, bdAbogZona, bdAbogUsuarioMev,
+    validacionesGenerales, abogadosController.actualizarRegistroAbog);
+
+    
 
 routesAbogados.delete("/borrar/:cuitParaBorrar", middlewareCuitNumero, abogadosController.borrarRegistroAbog);
 

@@ -32,18 +32,6 @@ const BuscarAbogado = () => {
         }
     }, [atributo]); // Este efecto se ejecutará cada vez que 'atributo' cambie
 
-    //si hay datos para buscar muestro la tabla
-    // const [mostrarTablaGeneral, setMostrarTablaGeneral] = useState(false);
-
-    // useEffect(() => {
-    //     if (atributo !== '' && textoBusqueda !== '') {
-    //         setMostrarTablaGeneral(true);
-    //     } else {
-    //         setMostrarTablaGeneral(false);
-    //     }
-    // },[textoBusqueda]);
-
-
     return (
         <div>
             <form>

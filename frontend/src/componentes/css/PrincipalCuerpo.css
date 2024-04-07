@@ -56,8 +56,56 @@
     /* Ajusta según sea necesario */
 }
 
+.ventanaEmergenteConsulta {
+    position: fixed;
+    top: 55%;
+    /* Centrar verticalmente */
+    left: 50%;
+    /* Centrar horizontalmente */
+    transform: translate(-50%, -50%);
+    background-color: rgb(7, 94, 215);
+    box-shadow: 10px 10px 15px rgb(0, 0, 0);
+    z-index: 9999;
+    /* Asegúrate de que la ventana emergente esté encima del contenido existente */
+    padding: 20px;
+    /* Ajusta según sea necesario */
+    width: 55%;
+    /* Ajusta según sea necesario */
+}
+
+.ventanaEmergenteEdicion {
+    position: fixed;
+    top: 25%;
+    /* Centrar verticalmente */
+    left: 48%;
+    /* Centrar horizontalmente */
+    transform: translate(-50%, -50%);
+    background-color: rgb(92, 139, 204);
+    box-shadow: 10px 10px 15px rgb(0, 0, 0);
+    z-index: 9999;
+    /* Asegúrate de que la ventana emergente esté encima del contenido existente */
+    padding: 20px;
+    /* Ajusta según sea necesario */
+    width: 85%;
+    /* Ajusta según sea necesario */
+}
+
 .seccionDisplayFlex {
     display: flex;
+}
+
+.seccionDisplayFlex label {
+    margin: 5px 10px;
+    color: rgb(243, 243, 243);
+}
+
+.seccionDisplayFlex span {
+    margin: 5px 10px;
+    font-weight: 700;
+    color: rgb(10, 29, 116);
+    background-color: rgba(255, 255, 255, 0.336);
+    padding: 1px 5px;
+    border-radius: 5px;
 }
 
 .espaciado {

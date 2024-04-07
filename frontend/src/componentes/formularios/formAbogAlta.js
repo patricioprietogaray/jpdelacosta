@@ -4,11 +4,11 @@ import React, { useState } from 'react';
 import '../css/PrincipalCuerpo.css';
 import axios from 'axios';
 
-const FormAbogAlta = ({ cerrarVentana }) => {
+const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral }) => {
     
     // al cerrar la ventana envio info al padre para que se cierre solo esta ventana!
-    const handlerVolverClick = (ventanaIdentificada) => {
-        cerrarVentana(ventanaIdentificada);
+    const handlerVolverClick = () => {
+        cerrarVentanaAgregarDesdeGeneral();
         // alert("cierro ventana (formAbogAlta)");
     }
 
@@ -82,7 +82,7 @@ const FormAbogAlta = ({ cerrarVentana }) => {
                 </article>
                 {/* modifico los parametros de la funcion que es pasada por props 
                 para el cierre de la ventana */}
-                <article className='close-button' onClick={()=>handlerVolverClick('ventanaNuevoRegistro')}>
+                <article className='close-button' onClick={()=>handlerVolverClick()}>
                 </article>
             </section>
             <form onSubmit={handleSubmit}>

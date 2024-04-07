@@ -1,3 +1,5 @@
+//abogadosControllerCRUD.js
+
 const abogadoSchema = require("../models/abogadosSchema");
 
 // Crud -> Create
@@ -88,7 +90,8 @@ const abogadosPorZona = async (req, res) => {
 // se puede acutalizar cualquier atributo cuit incluido (por no ser el id)
 const actualizarRegistroAbog = async (req, res) => {
     try {
-        const buscarCUIT = req.params.cuit;
+        // const buscarCUIT = req.params.cuit;
+        const buscarCUIT = Number(req.params.cuit);
         // console.log("buscarCUIT "+buscarCUIT);
         const abogadoEncontrado = await abogadoSchema.findOne(
             {bd_abog_cuit: buscarCUIT}
