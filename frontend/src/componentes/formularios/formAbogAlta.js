@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import '../css/PrincipalCuerpo.css';
 import axios from 'axios';
 
-const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral }) => {
+const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral, todosLosDatos }) => {
     
     // al cerrar la ventana envio info al padre para que se cierre solo esta ventana!
     const handlerVolverClick = () => {
@@ -69,6 +69,8 @@ const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral }) => {
             //muestro el mensaje configurado desde el servidor
             setMensajeParaMostrar(respuestaAlta.data.msg);
             setErrorParaMostrar('');
+            //actualizo los datos de la tabla en AbogGeneral
+            todosLosDatos();
         } catch (error) {
             setMensajeParaMostrar('');
             setErrorParaMostrar('Error al ingresar el nuevo registro: ' + error.message);

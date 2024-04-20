@@ -3,11 +3,12 @@
 import React, { useState } from 'react';
 import '../css/PrincipalCuerpo.css';
 import FormAbogEditar from './formAbogEditar';
+import axios from 'axios';
 
 
-const FormAbogConsulta = ({ registro, cerrarVentanaConsultaDesdeGeneral }) => {
+const FormAbogConsulta = ({ registro, cerrarVentanaConsultaDesdeGeneral, todosLosDatos }) => {
     //cargo todos los atributos del parámetro registro 
-    console.log('lo que entra:   '+registro[0]._id);
+    // console.log('lo que entra:   ' + registro[0]._id);
 
     //**** CERRAR VENTANA CONSULTA  */
     //llamo a la funcion cerrar del componente anterior que muestra el componete actual
@@ -30,7 +31,7 @@ const FormAbogConsulta = ({ registro, cerrarVentanaConsultaDesdeGeneral }) => {
     }
 
     //defino la funcion que al presionar el boton editar muestro la ventana edicion
-      //llamar al componente editar y sin cerrar esta ventana
+    //llamar al componente editar y sin cerrar esta ventana
     const handlerEditar = () => {
         setVerVentanaEdicion(true);
     }
@@ -42,18 +43,30 @@ const FormAbogConsulta = ({ registro, cerrarVentanaConsultaDesdeGeneral }) => {
     //botones
     const [botonEditar, setBotonEditar] = useState(true);
     const [botonBorrar, setBotonBorrar] = useState(true);
+    const [botonVolver, setBotonVolver] = useState(false);
+
+
+    // color de la ventana
+    const [estiloVentana, setEstiloVentana] = useState('ventanaEmergenteConsulta');
+
+    const handlerVolver = () => {
+        cerrarVentanaConsultaDesdeGeneral();
+    }
+
+
+    
 
     //ventanas
     
-    const [verVentanaBorrar, setVerVentanaBorrar] = useState(false);
+    //const [verVentanaBorrar, setVerVentanaBorrar] = useState(false);
 
     //mensajes desde el servidor
     const [mensajeParaMostrar, setMensajeParaMostrar] = useState('');
     const [errorParaMostrar, setErrorParaMostrar] = useState('');
 
     //atributos inputs
-    const [isReadOnly, setIsReadOnly] = useState(true);
-    const [isDisabled, setIsDisabled] = useState(true);
+    //const [isReadOnly, setIsReadOnly] = useState(true);
+    //const [isDisabled, setIsDisabled] = useState(true);
 
     
 
@@ -62,16 +75,46 @@ const FormAbogConsulta = ({ registro, cerrarVentanaConsultaDesdeGeneral }) => {
     //llamar al componente borrar y sin cerrar esta ventana
     const handlerBorrar = () => {
         setBotonEditar(false);
-        setBotonBorrar(false);
+        setBotonBorrar(true);
+        setBotonVolver(true);
+        // alert("presiono el boton borrar!");
+        setEstiloVentana('ventanaEmergenteBorrar');
+        if (botonBorrar === true && estiloVentana === 'ventanaEmergenteConsulta') {
+            alert('presiono el boton borrar para mostrar el registro se borrará');
+        }
+        if (botonBorrar === true && estiloVentana === 'ventanaEmergenteBorrar') {
+            handlerBorrarDefinitivamente();
+            handlerVolver();
+        }
+        
     }
     
+
+    const handlerBorrarDefinitivamente = async () => {
+        // alert('presiono el boton borrar para borrar el registro: '+registro[0]._id + ', cuit: '+registro[0].bd_abog_cuit);
+        try {
+            const response = await axios.delete(`http://localhost:3001/abogados/borrar/${registro[0].bd_abog_cuit}`);
+            // alert(response.data.msg);
+            setMensajeParaMostrar(response.data.msg);
+            setErrorParaMostrar('');
+            //actualizo los datos de la tabla en AbogGeneral
+            todosLosDatos();
+            handlerVolverClickGeneral();
+        } catch (error) {
+            setMensajeParaMostrar('');
+            setErrorParaMostrar('Error al borrar el abogado: ' + error.message);
+        }
+    }
     //************************************************************************** */
 
 
     return (
-        <div className='ventanaEmergenteConsulta'>
-            <section className='barraTitulo'>
-                <h4>Consulta del abogado: {registro[0].bd_abog_nombre} </h4>
+        // <div className='ventanaEmergenteConsulta'>
+        <div className={estiloVentana}>
+
+        <section className='barraTitulo'>
+                {estiloVentana==='ventanaEmergenteConsulta'?<h4>Consulta del abogado: {registro[0].bd_abog_nombre}</h4>:<h4>Eliminar el abogado: {registro[0].bd_abog_nombre}</h4>}
+                {/* <h4>{(estiloVentana === 'ventanaEmergenteConsulta' ? 'consulta' : 'borrar')} - Consulta del abogado: {registro[0].bd_abog_nombre} </h4> */}
                 <div className='close-button' onClick={()=>handlerVolverClickGeneral()}></div>
             </section>
             <section className='seccionDisplayFlex'>
@@ -111,7 +154,11 @@ const FormAbogConsulta = ({ registro, cerrarVentanaConsultaDesdeGeneral }) => {
             </section>
             <div className='botonesAccion'>
                 {botonEditar && <button onClick={()=>handlerEditar()}>Editar</button>}
-                {botonBorrar && <button onClick={handlerBorrar}>Borrar</button>}
+                {/* {botonBorrar && <button onClick={handlerBorrar}>Borrar</button>}  */}
+                {botonBorrar && <button onClick={() => handlerBorrar()}>Borrar</button>}
+                {botonVolver && <button onClick={()=>handlerVolver()}>Volver</button>}
+                
+
             </div>
             
             {verVentanaEdicion &&

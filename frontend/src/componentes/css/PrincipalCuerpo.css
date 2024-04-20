@@ -70,6 +70,23 @@
     /* Ajusta según sea necesario */
 }
 
+.ventanaEmergenteBorrar {
+    position: fixed;
+    top: 55%;
+    /* Centrar verticalmente */
+    left: 50%;
+    /* Centrar horizontalmente */
+    transform: translate(-50%, -50%);
+    background-color: rgb(215, 7, 69);
+    box-shadow: 10px 10px 15px rgb(0, 0, 0);
+    z-index: 9999;
+    /* Asegúrate de que la ventana emergente esté encima del contenido existente */
+    padding: 20px;
+    /* Ajusta según sea necesario */
+    width: 55%;
+    /* Ajusta según sea necesario */
+}
+
 .ventanaEmergenteEdicion {
     position: fixed;
     top: 25%;

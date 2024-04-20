@@ -86,13 +86,14 @@ const FormAbogEditar = ({ registro, cerrarVentana, actualizarListaAbogados }) =>
     }
 
     const handlerBorrar = () => {
-        // alert('Presiono borrar');
+        alert('Presiono borrar');
         //muestro botones
         setBotonEditar(false);
         setBotonBorrar(false);
         setBotonGuardar(false);
         setBotonBorrarDefinitivamente(true);
         setBotonCancelar(true);
+
     }
 
 
@@ -401,9 +402,9 @@ const FormAbogEditar = ({ registro, cerrarVentana, actualizarListaAbogados }) =>
             </section>
             <div className='botonesAccion'>
                 {botonEditar && <button onClick={handlerEditar}>Editar</button>}
-                {botonBorrar && <button onClick={handlerBorrar}>Borrar</button>}
+                {botonBorrar && <button onClick={handlerBorrar()}>Borrar</button>}
                 {botonGuardar && <button onClick={handlerGuardar}>Guardar</button>}
-                {botonBorrarDefinitivamente && <button onClick={handlerBorrarDefinitivamente}>Borrar Definitivamente</button>}
+                {/* {botonBorrarDefinitivamente && <button onClick={handlerBorrarDefinitivamente}>Borrar Definitivamente</button>} */}
                 {/* {botonBorrarDefinitivamente && <formAbogBorrar />} */}
                 {/* {botonBorrarDefinitivamente && <formAbogBorrar />} Renderizar el componente formAbogBorrar */}
                 {/* {botonCancelar && <button onClick={handlerCancelar}>Cancelar</button>} */}
