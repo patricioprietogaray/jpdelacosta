@@ -93,9 +93,108 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
             // resultado . data . coleccion en mongo
             setDatos(resultadoTodos.data.abogados_collections);
         } catch (error) {
-            setError('error de servidor: ' + error.message);
+            if (error.response) {
+                setError('Error en la respuesta del servidor:', error.response);
+            } else if (error.request) {
+                setError('Error al hacer la solicitud:', error.request);
+            } else {
+                setError('Error inesperado:', error.message);
+            }
         }
     }
+
+    // funcion para obtener todos los datos de la coleccion que coincidan con el cuit
+    const datosPorCuit = async () => {
+        //Verifica que el texto de busqueda tenga al menos 3 digitos
+        if (textoBusqueda.length < 11) {
+            setError(`El CUIT debe tener los once digitos para realizar la búsqueda.`);
+            return;
+        } else {
+            setError('');
+        }
+        //alert('mostrar todos los datos atributo y textoBusqueda estan vacios');
+        // alert('busca por cuit')
+        let rutaCuit = `http://localhost:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/cuit/${textoBusqueda}`;
+        //alert(rutaCuit.data.abogados_collections);
+        try {
+            const resultadoCuits = await axios.get(rutaCuit);
+            // resultado . data . coleccion en mongo
+            setDatos(resultadoCuits.data.abogados_collections);
+        } catch (error) {
+            if (error.response) {
+                setError('Error en la respuesta del servidor:', error.response);
+            } else if (error.request) {
+                setError('Error al hacer la solicitud:', error.request);
+            } else {
+                setError('Error inesperado:', error.message);
+            }
+        }
+    }
+
+     // funcion para obtener todos los datos de la coleccion que coincidan con el nombre
+    const datosPorNombre = async () => {
+        //Verifica que el texto de busqueda tenga al menos 3 digitos
+        if (textoBusqueda.length < 3) {
+            setError(`El Nombre debe tener al menos tres caracteres para realizar la búsqueda.`);
+            return;
+        } else {
+            setError('');
+        }
+        //alert('mostrar todos los datos atributo y textoBusqueda estan vacios');
+        // alert('busca por cuit')
+        let rutaNombre = `http://localhost:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/nombre/${textoBusqueda}`;
+        // console.log(rutaNombre);
+
+        try {
+            const resultadoNombres = await axios.get(rutaNombre);
+            // console.log(resultadoNombres.data.abogados_collections[0]);
+            // resultado . data . coleccion en mongo
+            setDatos(resultadoNombres.data.abogados_collections);
+
+        } catch (error) {
+            if (error.response) {
+                setError('Error en la respuesta del servidor:', error.response);
+            } else if (error.request) {
+                setError('Error al hacer la solicitud:', error.request);
+            } else {
+                setError('Error inesperado:', error.message);
+            }
+        }
+    }
+
+    // funcion para obtener todos los datos de la coleccion que coincidan con la zona
+    const datosPorZona = async () => {
+        //Verifica que el texto de busqueda tenga al menos 3 digitos
+        if (textoBusqueda.length < 0) {
+            setError(`La zona debe tener al menos un caracteres para realizar la búsqueda.`);
+            return;
+        } else {
+            setError('');
+        }
+        //alert('mostrar todos los datos atributo y textoBusqueda estan vacios');
+        // alert('busca por cuit')
+        let rutaZona = `http://localhost:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/zona/${textoBusqueda}`;
+        // console.log(rutaNombre);
+
+        try {
+            const resultadoZona = await axios.get(rutaZona);
+            // console.log(resultadoNombres.data.abogados_collections[0]);
+            // resultado . data . coleccion en mongo
+            setDatos(resultadoZona.data.abogados_collections);
+
+        } catch (error) {
+            if (error.response) {
+                setError('Error en la respuesta del servidor:', error.response);
+            } else if (error.request) {
+                setError('Error al hacer la solicitud:', error.request);
+            } else {
+                setError('Error inesperado:', error.message);
+            }
+        }
+    }
+
+
+
 
     //funcion que identifica y captura el clic de la linea 
     const tablaClic = async (cuit) => {
@@ -109,9 +208,15 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
     useEffect(() => {
         if (atributo === '' || textoBusqueda==='') {
             todosLosDatos();
+        } else if (atributo === 'bd_abog_cuit' && textoBusqueda.length === 11) {
+            datosPorCuit();  // Búsqueda por CUIT (11 dígitos)
+        } else if (atributo === 'bd_abog_nombre' && textoBusqueda.length >= 3) {
+            datosPorNombre(); // Búsqueda por nombre (mínimo 3 caracteres)
+        } else if (atributo === 'bd_abog_zona' && textoBusqueda.length >= 0) {
+            datosPorZona();
         }
 
-        todosLosDatos()
+        // todosLosDatos()
     },[atributo, textoBusqueda]);
 
     return (
@@ -128,7 +233,13 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {datos.length > 0 && datos.map((dato, index) => (
+                    {datos.length === 0 && (
+                        <tr>
+                            <td colspan='5' className='tablaUnicoTextoCentrado'>Sin abogados que mostrar</td>
+                        </tr>
+                        )
+                    }
+                    {datos.length > 0 && (datos.map((dato, index) => (
                         <tr key={index} onClick={()=>tablaClic(dato.bd_abog_cuit)}>
                             <td>{dato.bd_abog_nombre}</td>
                             <td>{dato.bd_abog_cuit}</td>
@@ -137,16 +248,12 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
                             <td>{dato.bd_abog_zona}</td>
                         </tr>
                         )
-                    )}
+                    ))}
                 </tbody>
             </table>
             <button onClick={agregarRegNuevo}>Agregar un registro nuevo</button>
             {verNuevoRegistro && (<FormAbogAlta cerrarVentanaAgregarDesdeGeneral={cerrarComponenteAgregar} todosLosDatos={todosLosDatos} />)}
             {verRegConsulta !== false && (<FormAbogConsulta registro={registroSeleccionado} cerrarVentanaConsultaDesdeGeneral={cerrarComponenteConsulta} todosLosDatos={todosLosDatos} />)}
-            
-
-
-
         </>
     );
 }
