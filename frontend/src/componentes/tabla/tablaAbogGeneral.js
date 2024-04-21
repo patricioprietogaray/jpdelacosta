@@ -20,7 +20,40 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
     //estado para manejar errores
     const [error, setError] = useState('');
 
-    
+
+    //********************PAGINACION********************************************** */
+    //* paginacion definicion del numero de registros por pagina, 
+    // total de registros y pagina actual
+    const [paginaAcutal, setPaginaAcutal] = useState(1);
+    const [registrosPorPagina, setRegistrosPorPagina] = useState(5);
+
+    const indiceInicio = (paginaAcutal - 1) * registrosPorPagina;
+    // primer muestra:    (1-1)*5     (0)*5  = 0 es el indice de inicio
+    // segunda muestra: (2-1)*5  = 5 es el indice de inicio (indice 6 del arreglo)
+
+    const indiceFin = indiceInicio + registrosPorPagina;
+    // primer muestra:    0+5 = 5 es el indice de finalizacion de la pagina 1
+    // segunda muestra:    5+5 = 10 es el indice de finalizacion de la pagina 2
+
+    const datosPaginados = datos.slice(indiceInicio, indiceFin);
+    //porcion del arreglo que se guardara en datosPaginados 
+    // El índice de inicio es inclusivo, mientras que el de fin es exclusivo.
+    // fin-1
+
+    const siguientePagina = () => {
+        if (paginaAcutal * registrosPorPagina < datos.length) {
+            // primer muestra: 1*5 < cantidad de elementos del arreglo
+            // si es mayor a 5 los registros pasar al proximo
+            setPaginaAcutal(paginaAcutal + 1);
+        }
+    }
+
+    const paginaAnterior = () => {
+        if (paginaAcutal > 1) {
+            // si la pagina es mayor a 1 entonces puedo retroceder
+            setPaginaAcutal(paginaAcutal - 1);
+        }
+    }
 
 
 
@@ -93,13 +126,7 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
             // resultado . data . coleccion en mongo
             setDatos(resultadoTodos.data.abogados_collections);
         } catch (error) {
-            if (error.response) {
-                setError('Error en la respuesta del servidor:', error.response);
-            } else if (error.request) {
-                setError('Error al hacer la solicitud:', error.request);
-            } else {
-                setError('Error inesperado:', error.message);
-            }
+            capturaErroresServidor();
         }
     }
 
@@ -121,13 +148,7 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
             // resultado . data . coleccion en mongo
             setDatos(resultadoCuits.data.abogados_collections);
         } catch (error) {
-            if (error.response) {
-                setError('Error en la respuesta del servidor:', error.response);
-            } else if (error.request) {
-                setError('Error al hacer la solicitud:', error.request);
-            } else {
-                setError('Error inesperado:', error.message);
-            }
+            capturaErroresServidor();
         }
     }
 
@@ -152,13 +173,7 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
             setDatos(resultadoNombres.data.abogados_collections);
 
         } catch (error) {
-            if (error.response) {
-                setError('Error en la respuesta del servidor:', error.response);
-            } else if (error.request) {
-                setError('Error al hacer la solicitud:', error.request);
-            } else {
-                setError('Error inesperado:', error.message);
-            }
+            capturaErroresServidor();
         }
     }
 
@@ -183,17 +198,19 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
             setDatos(resultadoZona.data.abogados_collections);
 
         } catch (error) {
-            if (error.response) {
+            capturaErroresServidor();
+        }
+    }
+
+    const capturaErroresServidor = () => {
+        if (error.response) {
                 setError('Error en la respuesta del servidor:', error.response);
             } else if (error.request) {
                 setError('Error al hacer la solicitud:', error.request);
             } else {
                 setError('Error inesperado:', error.message);
             }
-        }
     }
-
-
 
 
     //funcion que identifica y captura el clic de la linea 
@@ -239,7 +256,7 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
                         </tr>
                         )
                     }
-                    {datos.length > 0 && (datos.map((dato, index) => (
+                    {datos.length > 0 && (datosPaginados.map((dato, index) => (
                         <tr key={index} onClick={()=>tablaClic(dato.bd_abog_cuit)}>
                             <td>{dato.bd_abog_nombre}</td>
                             <td>{dato.bd_abog_cuit}</td>
@@ -251,6 +268,18 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
                     ))}
                 </tbody>
             </table>
+            <section>
+                {/* llamo a paginaAnterior y deshabilito el boton
+                 si se encuentra en la primer pagina */}
+                <button
+                    onClick={paginaAnterior} disabled={paginaAcutal === 1}>Anterior</button>
+                {/* llamo a siguientePagina y 
+                deshabilito si esta al final del arreglo */}
+                <button
+                    onClick={siguientePagina}
+                    disabled={paginaAcutal * registrosPorPagina >= datos.length}>Siguiente</button>
+            </section>
+            
             <button onClick={agregarRegNuevo}>Agregar un registro nuevo</button>
             {verNuevoRegistro && (<FormAbogAlta cerrarVentanaAgregarDesdeGeneral={cerrarComponenteAgregar} todosLosDatos={todosLosDatos} />)}
             {verRegConsulta !== false && (<FormAbogConsulta registro={registroSeleccionado} cerrarVentanaConsultaDesdeGeneral={cerrarComponenteConsulta} todosLosDatos={todosLosDatos} />)}

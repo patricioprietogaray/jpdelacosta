@@ -1,5 +1,5 @@
 table {
-    background-color: rgba(7, 58, 199, 0.623);
+    background-color: rgba(9, 41, 128, 0.623);
     color: rgb(255, 255, 255);
     border: 2px solid black;
     margin: 10px auto;
@@ -8,6 +8,7 @@ table {
 
 td {
     width: 1%;
+    background-color: rgba(52, 103, 245, 0.623);
 }
 
 .nombreAbogado {
@@ -18,9 +19,16 @@ td {
     width: 0.5%;
 }
 
-tr:nth-child(odd) {
+/* posiciones impares */
+tr:nth-child(even) {
     background-color: rgb(96, 172, 243);
     color: black;
+}
+
+/*posiciones pares*/
+tr:nth-child(odd) {
+    background-color: rgba(7, 58, 199, 0.623);
+    color: rgb(255, 255, 255);
 }
 
 .tablaUnicoTextoCentrado {
