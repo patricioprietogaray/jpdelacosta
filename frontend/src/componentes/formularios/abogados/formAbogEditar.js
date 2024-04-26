@@ -1,7 +1,7 @@
 // formAbogEditar.js     actualizar registro
 
 import React, { useEffect, useState } from 'react';
-import '../css/PrincipalCuerpo.css';
+import '../../css/PrincipalCuerpo.css';
 import axios from 'axios';
 
 const FormAbogEditar = ({ registro, cerrarVentanaEditar }) => {

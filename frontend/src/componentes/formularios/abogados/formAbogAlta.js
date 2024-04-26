@@ -1,7 +1,7 @@
 //formAbogAlta.js
 
 import React, { useState } from 'react';
-import '../css/PrincipalCuerpo.css';
+import '../../css/PrincipalCuerpo.css';
 import axios from 'axios';
 
 const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral, todosLosDatos }) => {
@@ -100,7 +100,7 @@ const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral, todosLosDatos }) => {
             <form onSubmit={handleSubmit}>
                 <section className='seccionDisplayFlex'>
                     <div>
-                        <label>Nombres y Apellidos: </label>
+                        <label>APELLIDOS y Nombres: </label>
                         <input className='anchoGrande espaciado' name='bd_abog_nombre' value={nuevoAbogado.bd_abog_nombre} onChange={handleChange} />
                     </div>
                 <div>

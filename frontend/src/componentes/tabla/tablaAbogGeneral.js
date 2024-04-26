@@ -1,10 +1,12 @@
 //tablaAbogGeneral.js
 
 import React, { useEffect, useState } from 'react';
-import '../css/tabla.css';
+import '../css/abogados/tabla.css';
+import '../css/abogados/cuerpo.css';
+import '../css/abogados/ventanasEmergentes.css';
 import axios from 'axios';
-import FormAbogConsulta from '../formularios/formAbogConsulta';
-import FormAbogAlta from '../formularios/formAbogAlta';
+import FormAbogConsulta from '../formularios/abogados/formAbogConsulta';
+import FormAbogAlta from '../formularios/abogados/formAbogAlta';
 
 
 const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
@@ -117,16 +119,25 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
 
     //******************************************************* */
 
+    //*************ATENCION CONEXION WEB DENTRO DE LA LAN */
+    //* IP FIJA DEL SERVER EN LA LAN
+    //* SETEO DEL FIREWALL PUERTOS 3001, 3005 Y 27017 QUE SE PERMITAN TODAS LAS IP DE LA RED
+    //* CORS TODAS LAS DIRECCIONES
+    //* SETEO DEL SERVIDOR CON IP FIJA (NODE)
+    //* NODE CORS TODO Middleware --> app.use(cors());
+    //* MONGODB COMPASS   MONGODB_URI=mongodb://192.168.18.100:27017/SorteoAbogados
+
+
     // funcion para obtener todos los datos de la coleccion
     const todosLosDatos = async () => {
         //alert('mostrar todos los datos atributo y textoBusqueda estan vacios');
-        let rutaTodos = `http://localhost:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/todos`;
+        let rutaTodos = `http://192.168.18.100:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/todos`;
         try {
             const resultadoTodos = await axios.get(rutaTodos);
             // resultado . data . coleccion en mongo
             setDatos(resultadoTodos.data.abogados_collections);
         } catch (error) {
-            capturaErroresServidor();
+            capturaErroresServidor(error);
         }
     }
 
@@ -141,14 +152,14 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
         }
         //alert('mostrar todos los datos atributo y textoBusqueda estan vacios');
         // alert('busca por cuit')
-        let rutaCuit = `http://localhost:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/cuit/${textoBusqueda}`;
+        let rutaCuit = `http://192.168.18.100:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/cuit/${textoBusqueda}`;
         //alert(rutaCuit.data.abogados_collections);
         try {
             const resultadoCuits = await axios.get(rutaCuit);
             // resultado . data . coleccion en mongo
             setDatos(resultadoCuits.data.abogados_collections);
         } catch (error) {
-            capturaErroresServidor();
+            capturaErroresServidor(error);
         }
     }
 
@@ -163,7 +174,7 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
         }
         //alert('mostrar todos los datos atributo y textoBusqueda estan vacios');
         // alert('busca por cuit')
-        let rutaNombre = `http://localhost:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/nombre/${textoBusqueda}`;
+        let rutaNombre = `http://192.168.18.100:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/nombre/${textoBusqueda}`;
         // console.log(rutaNombre);
 
         try {
@@ -173,7 +184,7 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
             setDatos(resultadoNombres.data.abogados_collections);
 
         } catch (error) {
-            capturaErroresServidor();
+            capturaErroresServidor(error);
         }
     }
 
@@ -188,7 +199,7 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
         }
         //alert('mostrar todos los datos atributo y textoBusqueda estan vacios');
         // alert('busca por cuit')
-        let rutaZona = `http://localhost:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/zona/${textoBusqueda}`;
+        let rutaZona = `http://192.168.18.100:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/zona/${textoBusqueda}`;
         // console.log(rutaNombre);
 
         try {
@@ -198,24 +209,37 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
             setDatos(resultadoZona.data.abogados_collections);
 
         } catch (error) {
-            capturaErroresServidor();
+            capturaErroresServidor(error);
         }
     }
 
-    const capturaErroresServidor = () => {
-        if (error.response) {
-                setError('Error en la respuesta del servidor:', error.response);
+    const capturaErroresServidor = (error) => {
+        if (error) { // Verifica si error está definido
+            if (error.response) {
+                setError(`Error en la respuesta del servidor: ${error.response.data}`);
             } else if (error.request) {
-                setError('Error al hacer la solicitud:', error.request);
+                setError(`Error al hacer la solicitud: ${error.request.status} - ${error.request.statusText}`);
             } else {
-                setError('Error inesperado:', error.message);
+                setError(`Error inesperado: ${error.message}`);
             }
+        } else {
+            setError("Error desconocido: El objeto error es undefined");
+        }
+
+
+        // if (error.response) {
+        //         setError(`Error en la respuesta del servidor: ${error.response.data}`);
+        //     } else if (error.request) {
+        //         setError(`Error al hacer la solicitud: ${error.request}`);
+        //     } else {
+        //         setError(`Error inesperado: ${error.message}`);
+        //     }
     }
 
 
     //funcion que identifica y captura el clic de la linea 
     const tablaClic = async (cuit) => {
-        let rutaBuscarCuit = `http://localhost:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/cuit/${cuit}`;
+        let rutaBuscarCuit = `http://192.168.18.100:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/cuit/${cuit}`;
         const todoElRegistro = await axios.get(rutaBuscarCuit);
         setRegistroSeleccionado(todoElRegistro.data.abogados_collections);
         // setRegistroCliqueado(cuit);
@@ -242,7 +266,7 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
             <table>
                 <thead>
                     <tr>
-                        <th>NOMBRE</th>
+                        <th>APELLIDO Y NOMBRE</th>
                         <th>CUIT</th>
                         <th>CELULAR</th>
                         <th>USUARIO MEV</th>
@@ -258,7 +282,7 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
                     }
                     {datos.length > 0 && (datosPaginados.map((dato, index) => (
                         <tr key={index} onClick={()=>tablaClic(dato.bd_abog_cuit)}>
-                            <td>{dato.bd_abog_nombre}</td>
+                            <td className='nombreAbogado'>{dato.bd_abog_nombre}</td>
                             <td>{dato.bd_abog_cuit}</td>
                             <td>{dato.bd_abog_celular}</td>
                             <td>{dato.bd_abog_usuario_mev}</td>
@@ -268,18 +292,19 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
                     ))}
                 </tbody>
             </table>
-            <section>
+            <section className='botonesControlTabla'>
                 {/* llamo a paginaAnterior y deshabilito el boton
                  si se encuentra en la primer pagina */}
                 <button
                     onClick={paginaAnterior} disabled={paginaAcutal === 1}>Anterior</button>
                 {/* llamo a siguientePagina y 
                 deshabilito si esta al final del arreglo */}
+                {/* math round redondea para abajo, ceil redondea para arriba */}
+                <div>Página {paginaAcutal} de {Math.ceil(datos.length / registrosPorPagina)}</div>
                 <button
                     onClick={siguientePagina}
                     disabled={paginaAcutal * registrosPorPagina >= datos.length}>Siguiente</button>
             </section>
-            
             <button onClick={agregarRegNuevo}>Agregar un registro nuevo</button>
             {verNuevoRegistro && (<FormAbogAlta cerrarVentanaAgregarDesdeGeneral={cerrarComponenteAgregar} todosLosDatos={todosLosDatos} />)}
             {verRegConsulta !== false && (<FormAbogConsulta registro={registroSeleccionado} cerrarVentanaConsultaDesdeGeneral={cerrarComponenteConsulta} todosLosDatos={todosLosDatos} />)}

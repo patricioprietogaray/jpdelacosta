@@ -1,0 +1,192 @@
+/* estilos de las ventanas emergentes */
+
+.barraTitulo .close-button {
+    margin-left: 0px;
+    width: 50px;
+    /* background-color: rgba(102, 51, 153, 0.404); */
+}
+
+.barraTitulo h4 {
+    margin: 0;
+    width: 600px;
+    margin-left: 20px;
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+}
+
+.barraTitulo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(5, 125, 223);
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* Opcional: Estilos adicionales para hacer la "x" más atractiva */
+.close-button:hover::before,
+.close-button:hover::after {
+    background-color: rgb(255, 255, 255);
+}
+
+/* .close-button::after {
+    transform: translateX(-50%) rotate(-45deg);
+} */
+
+/* Estilos para las líneas de la "x" */
+/* .close-button::before,
+.close-button::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background-color: black;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+} */
+
+/* CSS para la ventana emergente */
+.ventanaEmergente {
+    position: fixed;
+    top: 55%;
+    /* Centrar verticalmente */
+    left: 50%;
+    /* Centrar horizontalmente */
+    transform: translate(-50%, -50%);
+    background-color: rgb(7, 94, 215);
+    box-shadow: 10px 10px 15px rgb(0, 0, 0);
+    z-index: 9999;
+    /* Asegúrate de que la ventana emergente esté encima del contenido existente */
+    padding: 20px;
+    /* Ajusta según sea necesario */
+    max-width: 80%;
+    /* Ajusta según sea necesario */
+}
+
+.ventanaEmergenteConsulta {
+    position: fixed;
+    top: 55%;
+    /* Centrar verticalmente */
+    left: 50%;
+    /* Centrar horizontalmente */
+    transform: translate(-50%, -50%);
+    background-color: rgb(7, 94, 215);
+    box-shadow: 10px 10px 15px rgb(0, 0, 0);
+    z-index: 9999;
+    /* Asegúrate de que la ventana emergente esté encima del contenido existente */
+    padding: 20px;
+    /* Ajusta según sea necesario */
+    width: 55%;
+    /* Ajusta según sea necesario */
+}
+
+.ventanaEmergenteBorrar {
+    position: fixed;
+    top: 55%;
+    /* Centrar verticalmente */
+    left: 50%;
+    /* Centrar horizontalmente */
+    transform: translate(-50%, -50%);
+    background-color: rgb(215, 7, 69);
+    box-shadow: 10px 10px 15px rgb(0, 0, 0);
+    z-index: 9999;
+    /* Asegúrate de que la ventana emergente esté encima del contenido existente */
+    padding: 20px;
+    /* Ajusta según sea necesario */
+    width: 55%;
+    /* Ajusta según sea necesario */
+}
+
+.ventanaEmergenteEdicion {
+    position: fixed;
+    top: 25%;
+    /* Centrar verticalmente */
+    left: 48%;
+    /* Centrar horizontalmente */
+    transform: translate(-50%, -50%);
+    background-color: rgb(92, 139, 204);
+    box-shadow: 10px 10px 15px rgb(0, 0, 0);
+    z-index: 9999;
+    /* Asegúrate de que la ventana emergente esté encima del contenido existente */
+    padding: 20px;
+    /* Ajusta según sea necesario */
+    width: 85%;
+    /* Ajusta según sea necesario */
+}
+
+.seccionDisplayFlex {
+    display: flex;
+}
+
+.seccionDisplayFlex label {
+    margin: 5px 10px;
+    color: rgb(243, 243, 243);
+}
+
+.seccionDisplayFlex span {
+    margin: 5px 10px;
+    font-weight: 700;
+    color: rgb(10, 29, 116);
+    background-color: rgba(255, 255, 255, 0.336);
+    padding: 1px 5px;
+    border-radius: 5px;
+}
+
+.espaciado {
+    /* margin-left: 10px; */
+    /* margin-bottom: 10px; */
+    margin: 0px 10px 10px 0px;
+}
+
+.anchoGrandisimo {
+    width: 350px;
+}
+
+.anchoGrande {
+    width: 250px;
+}
+
+.anchoMediano {
+    width: 100px;
+}
+
+.anchoChico {
+    width: 28px;
+}
+
+.anchoChicoOpcion {
+    width: 38px;
+}
+
+.textoDerecha {
+    text-align: right;
+}
+
+/* boton X para cerrar el formulario */
+/* Estilos para el contenedor de la "x" */
+.close-button {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-left: 620px;
+}
+
+/* Estilos para las líneas de la "x" */
+.close-button::before,
+.close-button::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background-color: black;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.close-button::after {
+    transform: translateX(-50%) rotate(-45deg);
+}

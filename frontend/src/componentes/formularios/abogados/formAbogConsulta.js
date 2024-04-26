@@ -1,7 +1,7 @@
 // formAbogEditar.js      leer, actualizar y borrar registro
 
 import React, { useState } from 'react';
-import '../css/PrincipalCuerpo.css';
+import '../../css/PrincipalCuerpo.css';
 import FormAbogEditar from './formAbogEditar';
 import axios from 'axios';
 
