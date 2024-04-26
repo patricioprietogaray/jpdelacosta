@@ -11,6 +11,8 @@ import FormAbogAlta from '../formularios/abogados/formAbogAlta';
 
 const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
     
+    const host = '192.168.18.100';
+
     //estado para almacenar la coleccion todos o parcial para la tabla
     const [datos, setDatos] = useState([]);
 
@@ -131,7 +133,8 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
     // funcion para obtener todos los datos de la coleccion
     const todosLosDatos = async () => {
         //alert('mostrar todos los datos atributo y textoBusqueda estan vacios');
-        let rutaTodos = `http://192.168.18.100:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/todos`;
+        // no se puede setear en .env  por eso se hace con una variable
+        let rutaTodos = `http://${host}:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/todos`;
         try {
             const resultadoTodos = await axios.get(rutaTodos);
             // resultado . data . coleccion en mongo
@@ -152,7 +155,7 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
         }
         //alert('mostrar todos los datos atributo y textoBusqueda estan vacios');
         // alert('busca por cuit')
-        let rutaCuit = `http://192.168.18.100:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/cuit/${textoBusqueda}`;
+        let rutaCuit = `http://${host}:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/cuit/${textoBusqueda}`;
         //alert(rutaCuit.data.abogados_collections);
         try {
             const resultadoCuits = await axios.get(rutaCuit);
@@ -174,7 +177,7 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
         }
         //alert('mostrar todos los datos atributo y textoBusqueda estan vacios');
         // alert('busca por cuit')
-        let rutaNombre = `http://192.168.18.100:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/nombre/${textoBusqueda}`;
+        let rutaNombre = `http://${host}:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/nombre/${textoBusqueda}`;
         // console.log(rutaNombre);
 
         try {
@@ -199,7 +202,7 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
         }
         //alert('mostrar todos los datos atributo y textoBusqueda estan vacios');
         // alert('busca por cuit')
-        let rutaZona = `http://192.168.18.100:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/zona/${textoBusqueda}`;
+        let rutaZona = `http://${host}:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/zona/${textoBusqueda}`;
         // console.log(rutaNombre);
 
         try {
@@ -239,7 +242,7 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
 
     //funcion que identifica y captura el clic de la linea 
     const tablaClic = async (cuit) => {
-        let rutaBuscarCuit = `http://192.168.18.100:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/cuit/${cuit}`;
+        let rutaBuscarCuit = `http://${host}:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/cuit/${cuit}`;
         const todoElRegistro = await axios.get(rutaBuscarCuit);
         setRegistroSeleccionado(todoElRegistro.data.abogados_collections);
         // setRegistroCliqueado(cuit);

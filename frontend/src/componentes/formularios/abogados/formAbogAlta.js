@@ -6,6 +6,8 @@ import axios from 'axios';
 
 const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral, todosLosDatos }) => {
     
+    const host = "192.168.18.100";
+
     // al cerrar la ventana envio info al padre para que se cierre solo esta ventana!
     const handlerVolverClick = () => {
         cerrarVentanaAgregarDesdeGeneral();
@@ -62,7 +64,7 @@ const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral, todosLosDatos }) => {
             };
             
             const respuestaAlta = await axios.post(
-                'http://localhost:3001/abogados/crear', datasEnviados);
+                `http://${host}:3001/abogados/crear`, datasEnviados);
                     
             // const respuestaAlta = await axios.post(
                 // 'http://localhost:3001/abogados/crear', nuevoAbogado);

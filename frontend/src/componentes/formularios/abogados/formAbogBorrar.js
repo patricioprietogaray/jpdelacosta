@@ -7,6 +7,7 @@ import axios from 'axios';
 
 const FormAbogEditar = ({ registro, cerrarVentana, actualizarListaAbogados }) => {
 
+    const host = "192.168.18.100";
     //cargo todos los atributos del parámetro registro 
     const [cargoRegistros, setCargoRegistros] = useState({ ...registro });
     const [editoRegistros, setEditoRegistros] = useState(null);
@@ -102,7 +103,7 @@ const FormAbogEditar = ({ registro, cerrarVentana, actualizarListaAbogados }) =>
         // console.log('edito los registros.... '+cargoRegistros.cuit);
         //console.log(`http://localhost:3001/abogados/actualizar/${String(cargoRegistros.cuit)}`);
         try {
-            const responseEditar = await axios.put(`http://localhost:3001/abogados/actualizar/${String(cargoRegistros.cuit)}`,
+            const responseEditar = await axios.put(`http://${host}:3001/abogados/actualizar/${String(cargoRegistros.cuit)}`,
                 { ...editoRegistros });
             setMensajeParaMostrar(responseEditar.data.msg);
             setErrorParaMostrar('');
@@ -141,7 +142,7 @@ const FormAbogEditar = ({ registro, cerrarVentana, actualizarListaAbogados }) =>
         // alert('Borrado definitivo: el id es ' + registro._id);
         // alert('cuit: ' + registro.bd_abog_cuit);
         try {
-            const response = await axios.delete(`http://localhost:3001/abogados/borrar/${registro.bd_abog_cuit}`);
+            const response = await axios.delete(`http://${host}:3001/abogados/borrar/${registro.bd_abog_cuit}`);
             setMensajeParaMostrar(response.data.msg);
             setErrorParaMostrar('');
             // Llama a la función de actualización de la lista de abogados

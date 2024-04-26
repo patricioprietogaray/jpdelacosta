@@ -6,6 +6,7 @@ import axios from 'axios';
 
 const FormAbogEditar = ({ registro, cerrarVentanaEditar }) => {
 
+    const host = "192.168.18.100";
     //alert('datos: ' + datos.bd_abog_nombre);
     //alert('registro: ' + registro[0].bd_abog_nombre);
     
@@ -77,7 +78,7 @@ const FormAbogEditar = ({ registro, cerrarVentanaEditar }) => {
         // alert('datos: ' + datos.bd_abog_nombre);
         // alert('registro: '+registro.bd_abog_nombre);
         try {
-            const respuestaModificada = await axios.put(`http://localhost:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/actualizar/${registro[0].bd_abog_cuit}`, datos);
+            const respuestaModificada = await axios.put(`http://${host}:${process.env.REACT_APP_NODE_PORT || 3001}/abogados/actualizar/${registro[0].bd_abog_cuit}`, datos);
             setDatos(respuestaModificada.data.collectionsAbogados);
         } catch (error) {
             alert('Mensaje de error: ' + error.message);

@@ -7,7 +7,10 @@ import axios from 'axios';
 
 
 const FormAbogConsulta = ({ registro, cerrarVentanaConsultaDesdeGeneral, todosLosDatos }) => {
-    //cargo todos los atributos del parámetro registro 
+    
+    const host = '192.168.18.100';
+    
+    //cargo todos los atributos del parámetro registro
     // console.log('lo que entra:   ' + registro[0]._id);
 
     //**** CERRAR VENTANA CONSULTA  */
@@ -93,7 +96,7 @@ const FormAbogConsulta = ({ registro, cerrarVentanaConsultaDesdeGeneral, todosLo
     const handlerBorrarDefinitivamente = async () => {
         // alert('presiono el boton borrar para borrar el registro: '+registro[0]._id + ', cuit: '+registro[0].bd_abog_cuit);
         try {
-            const response = await axios.delete(`http://localhost:3001/abogados/borrar/${registro[0].bd_abog_cuit}`);
+            const response = await axios.delete(`http://${host}:3001/abogados/borrar/${registro[0].bd_abog_cuit}`);
             // alert(response.data.msg);
             setMensajeParaMostrar(response.data.msg);
             setErrorParaMostrar('');
