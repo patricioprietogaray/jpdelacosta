@@ -121,6 +121,7 @@ const FormAbogConsulta = ({ registro, cerrarVentanaConsultaDesdeGeneral, todosLo
                 <div className='close-button' onClick={()=>handlerVolverClickGeneral()}></div>
             </section>
             <section className='seccionDisplayFlex'>
+                {/* <label>Nombres y Apellidos: <span>{cargoRegistros.bd_abog_nombre}</span></label> */}
                 <label>Nombres y Apellidos: <span>{cargoRegistros.bd_abog_nombre}</span></label>
             </section>
             <section className='seccionDisplayFlex'>
@@ -129,7 +130,7 @@ const FormAbogConsulta = ({ registro, cerrarVentanaConsultaDesdeGeneral, todosLo
                 <label>C.U.I.T.: <span>{cargoRegistros.bd_abog_cuit}</span></label>
             </section>
             <section className='seccionDisplayFlex'>
-                <label>Domicilio Real: <span>{cargoRegistros.bd_abog_domicilio_real}</span></label>
+                <label>Domicilio Real: <span>{cargoRegistros.bd_abog_domicilio_particular}</span></label>
             </section>
             <section className='seccionDisplayFlex'>
                 <label>Teléfono Fijo: <span>{cargoRegistros.bd_abog_telefono_fijo}</span></label>
@@ -147,7 +148,13 @@ const FormAbogConsulta = ({ registro, cerrarVentanaConsultaDesdeGeneral, todosLo
                 <label>Defensor:<span>{cargoRegistros.bd_abog_defensor === true ? 'Si' : 'No'}</span></label>
             </section>
             <section className='seccionDisplayFlex'>
-                <label>Domicilio Legal:<span>{cargoRegistros.bd_abog_domicilio_legal}</span></label>
+                <label>Domicilio Particular:<span>{cargoRegistros.bd_abog_domicilio.particular}</span></label>
+            </section>
+            <section className='seccionDisplayFlex'>
+                <label>Domicilio Legal:<span>{cargoRegistros.bd_abog_domicilio.legal}</span></label>
+            </section>
+             <section className='seccionDisplayFlex'>
+                <label>Domicilio Constituido:<span>{cargoRegistros.bd_abog_domicilio.constituido}</span></label>
             </section>
             <section className='seccionDisplayFlex'>
                 <label>Horario de Atención:<span>{cargoRegistros.bd_abog_horario_atencion}</span></label>

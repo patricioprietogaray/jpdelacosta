@@ -45,7 +45,7 @@ const BuscarAbogado = () => {
                 <input onChange={modificaTextaBusqueda} disabled={estaInputDesactivado} />
             </form>
             {/* {mostrarTablaGeneral && <TablaAbogGeneral atributo={atributo} textoBusqueda={textoBusqueda} />} */}
-            {`Envia a la tabla general el atributo ${atributo}, con el texto ${textoBusqueda}`}
+            {/* {`Envia a la tabla general el atributo ${atributo}, con el texto ${textoBusqueda}`} */}
             <TablaAbogGeneral atributo={atributo} textoBusqueda={textoBusqueda} />
 
         </div>

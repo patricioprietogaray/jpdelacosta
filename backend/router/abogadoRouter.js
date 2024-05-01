@@ -29,23 +29,28 @@ routesAbogados.get("/zona/:zona", abogadosController.abogadosPorZona);
 routesAbogados.post(
     "/crear",
     //validar
-    bdAbogCUIT, bdAbogNombre, bdAbogTomo, bdAbogFolio,
-    bdAbogDomicilioReal, bdAbogTelefono, bdAbogCelular,
-    bdAbogCorreoElectrónico, bdAbogDomicilioElectronico, bdAbogAsesor,
-    bdAbogDefensor, bdAbogDomicilioLegal, bdAbogHorarioAtencion, bdAbogZona, bdAbogUsuarioMev,
+    bdAbogCUIT,
+    // bdAbogNombre, bdAbogTomo, bdAbogFolio,
+    // bdAbogDomicilioReal, bdAbogTelefono, bdAbogCelular,
+    // bdAbogCorreoElectrónico, bdAbogDomicilioElectronico, bdAbogAsesor,
+    // bdAbogDefensor, bdAbogDomicilioLegal, bdAbogHorarioAtencion, bdAbogZona, bdAbogUsuarioMev,
     validacionesGenerales,
     // llamo a la funcion crear
-    abogadosController.crearRegistroAbog);
+    abogadosController.crearRegistroAbog
+);
 
     //Edicion de un registro
 // routesAbogados.put("/actualizar/:cuit", middlewareCuitNumero, abogadosController.actualizarRegistroAbog);
 
 routesAbogados.put("/actualizar/:cuit", middlewareCuitNumero, 
-    bdAbogCUIT, bdAbogNombre, bdAbogTomo, bdAbogFolio,
-    bdAbogDomicilioReal, bdAbogTelefono, bdAbogCelular,
-    bdAbogCorreoElectrónico, bdAbogDomicilioElectronico, bdAbogAsesor,
-    bdAbogDefensor, bdAbogDomicilioLegal, bdAbogHorarioAtencion, bdAbogZona, bdAbogUsuarioMev,
-    validacionesGenerales, abogadosController.actualizarRegistroAbog);
+    bdAbogCUIT,
+    
+    // bdAbogNombre, bdAbogTomo, bdAbogFolio,
+    // bdAbogDomicilioReal, bdAbogTelefono, bdAbogCelular,
+    // bdAbogCorreoElectrónico, bdAbogDomicilioElectronico, bdAbogAsesor,
+    // bdAbogDefensor, bdAbogDomicilioLegal, bdAbogHorarioAtencion, bdAbogZona, bdAbogUsuarioMev,
+    validacionesGenerales, abogadosController.actualizarRegistroAbog
+);
 
     
 
