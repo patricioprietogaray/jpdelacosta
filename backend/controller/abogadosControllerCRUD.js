@@ -72,7 +72,7 @@ const abogadosPorZona = async (req, res) => {
     try {
         // busqueda de un texto dentro de una cadena de caracteres
         const regex = new RegExp(req.params.zona, 'i'); // 'i' para hacer la búsqueda insensible a mayúsculas y minúsculas
-        const abogadosZona = await abogadoSchema.find({ bd_abog_zona: regex });
+        const abogadosZona = await abogadoSchema.find({ "bd_abog_sorteo_seteo.zona_sorteo": regex });
         
         if (abogadosZona.length > 0) {
             res.status(200).json({ abogados_collections: abogadosZona , msg: "Proceso exitoso!" });

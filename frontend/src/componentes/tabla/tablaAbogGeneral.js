@@ -29,7 +29,7 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
     //* paginacion definicion del numero de registros por pagina, 
     // total de registros y pagina actual
     const [paginaAcutal, setPaginaAcutal] = useState(1);
-    const [registrosPorPagina, setRegistrosPorPagina] = useState(5);
+    const [registrosPorPagina, setRegistrosPorPagina] = useState(8);
 
     const indiceInicio = (paginaAcutal - 1) * registrosPorPagina;
     // primer muestra:    (1-1)*5     (0)*5  = 0 es el indice de inicio
@@ -256,10 +256,9 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
             datosPorCuit();  // Búsqueda por CUIT (11 dígitos)
         } else if (atributo === 'bd_abog_nombre' && textoBusqueda.length >= 3) {
             datosPorNombre(); // Búsqueda por nombre (mínimo 3 caracteres)
-        } else if (atributo === 'bd_abog_zona' && textoBusqueda.length >= 0) {
+        } else if (atributo === 'bd_abog_zonabd_abog_sorteo_seteo.zona_sorteo' && textoBusqueda.length >= 0) {
             datosPorZona();
         }
-
         // todosLosDatos()
     },[atributo, textoBusqueda]);
 
@@ -287,9 +286,9 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
                         <tr key={index} onClick={()=>tablaClic(dato.bd_abog_cuit)}>
                             <td className='nombreAbogado'>{dato.bd_abog_nombre}</td>
                             <td>{dato.bd_abog_cuit}</td>
-                            <td>{dato.bd_abog_celular}</td>
+                            <td>{dato.bd_abog_contacto.celular}</td>
                             <td>{dato.bd_abog_usuario_mev}</td>
-                            <td>{dato.bd_abog_zona}</td>
+                            <td>{dato.bd_abog_sorteo_seteo.zona_sorteo}</td>
                         </tr>
                         )
                     ))}

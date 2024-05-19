@@ -40,7 +40,7 @@ const BuscarAbogado = () => {
                     <option value=''>Buscar por ....</option>
                     <option value='bd_abog_cuit'>C.U.I.T.</option>
                     <option value='bd_abog_nombre'>NOMBRE</option>
-                    <option value='bd_abog_zona'>ZONA</option>
+                    <option value='bd_abog_sorteo_seteo.zona_sorteo'>ZONA</option>
                 </select>
                 <input onChange={modificaTextaBusqueda} disabled={estaInputDesactivado} />
             </form>

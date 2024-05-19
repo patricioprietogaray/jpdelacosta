@@ -36,6 +36,7 @@ const FormAbogConsulta = ({ registro, cerrarVentanaConsultaDesdeGeneral, todosLo
     //defino la funcion que al presionar el boton editar muestro la ventana edicion
     //llamar al componente editar y sin cerrar esta ventana
     const handlerEditar = () => {
+        //alert(cargoRegistros.bd_abog_domicilio.particular);
         setVerVentanaEdicion(true);
     }
 
@@ -116,59 +117,65 @@ const FormAbogConsulta = ({ registro, cerrarVentanaConsultaDesdeGeneral, todosLo
         <div className={estiloVentana}>
 
         <section className='barraTitulo'>
-                {estiloVentana==='ventanaEmergenteConsulta'?<h4>Consulta del abogado: {registro[0].bd_abog_nombre}</h4>:<h4>Eliminar el abogado: {registro[0].bd_abog_nombre}</h4>}
+                {estiloVentana==='ventanaEmergenteConsulta'?
+                    <h4>Consulta del abogado: {registro[0].bd_abog_nombre}</h4> :
+                    <h4>Eliminar el abogado: {registro[0].bd_abog_nombre}</h4>}
                 {/* <h4>{(estiloVentana === 'ventanaEmergenteConsulta' ? 'consulta' : 'borrar')} - Consulta del abogado: {registro[0].bd_abog_nombre} </h4> */}
                 <div className='close-button' onClick={()=>handlerVolverClickGeneral()}></div>
             </section>
             <section className='seccionDisplayFlex'>
                 {/* <label>Nombres y Apellidos: <span>{cargoRegistros.bd_abog_nombre}</span></label> */}
-                <label>Nombres y Apellidos: <span>{cargoRegistros.bd_abog_nombre}</span></label>
+                {cargoRegistros.bd_abog_nombre && <label>Nombres y Apellidos: <span>{cargoRegistros.bd_abog_nombre}</span></label>}
             </section>
             <section className='seccionDisplayFlex'>
-                <label>Tomo: <span>{cargoRegistros.bd_abog_tomo}</span></label>
-                <label>Folio: <span>{cargoRegistros.bd_abog_folio}</span></label>
+                {/* verifico si el objeto o si el atributo de ese objeto existe 
+                modo: atributo objeto contenedor && atributo objeto hijo && lo que se muestra por pantalla*/}
+                {cargoRegistros.bd_abog_colegio && cargoRegistros.bd_abog_colegio.tomo && <label>Tomo: <span>{cargoRegistros.bd_abog_colegio.tomo}</span></label>}
+                {cargoRegistros.bd_abog_colegio && cargoRegistros.bd_abog_colegio.folio && <label>Folio: <span>{cargoRegistros.bd_abog_colegio.folio}</span></label>}
                 <label>C.U.I.T.: <span>{cargoRegistros.bd_abog_cuit}</span></label>
             </section>
             <section className='seccionDisplayFlex'>
-                <label>Domicilio Real: <span>{cargoRegistros.bd_abog_domicilio_particular}</span></label>
+                {cargoRegistros.bd_abog_domicilio && cargoRegistros.bd_abog_domicilio.particular && <label>Domicilio Real: <span>{cargoRegistros.bd_abog_domicilio.particular}</span></label>}
+             </section>
+            <section className='seccionDisplayFlex'>
+                {cargoRegistros.bd_abog_contacto && cargoRegistros.bd_abog_contacto.telefono_fijo && <label>Teléfono Fijo: <span>{cargoRegistros.bd_abog_contacto.telefono_fijo}</span></label>}
+                {cargoRegistros.bd_abog_contacto && cargoRegistros.bd_abog_contacto.celular && <label>Celular: <span>{cargoRegistros.bd_abog_contacto.celular}</span></label>}
             </section>
             <section className='seccionDisplayFlex'>
-                <label>Teléfono Fijo: <span>{cargoRegistros.bd_abog_telefono_fijo}</span></label>
-                <label>Celular: <span>{cargoRegistros.bd_abog_celular}</span></label>
+                {cargoRegistros.bd_abog_contacto && cargoRegistros.bd_abog_contacto.email && <label>E - Mail: <span>{cargoRegistros.bd_abog_contacto.email}</span></label>}
             </section>
             <section className='seccionDisplayFlex'>
-                <label>E - Mail:<span>{cargoRegistros.bd_abog_email}</span></label>
+                {cargoRegistros.bd_abog_contacto && cargoRegistros.bd_abog_contacto.domicilio_electronico && <label>Domiclio Electrónico: <span>{cargoRegistros.bd_abog_contacto.domicilio_electronico}</span></label>}
             </section>
             <section className='seccionDisplayFlex'>
-                <label>Domiclio Electrónico:<span>{cargoRegistros.bd_abog_domicilio_electronico}</span></label>
+                {cargoRegistros.bd_abog_sorteo_seteo && cargoRegistros.bd_abog_sorteo_seteo.zona_sorteo && <label>Zona: <span>{cargoRegistros.bd_abog_sorteo_seteo.zona_sorteo}</span></label>}
+                {cargoRegistros.bd_abog_sorteo_seteo && <label>Asesor: <span>{cargoRegistros.bd_abog_sorteo_seteo.asesor === true ? 'Si' : 'No'}</span></label>}
+                {cargoRegistros.bd_abog_sorteo_seteo && <label>Asesor: <span>{cargoRegistros.bd_abog_sorteo_seteo.defensor === true ? 'Si' : 'No'}</span></label>}
             </section>
             <section className='seccionDisplayFlex'>
-                <label>Zona:<span>{cargoRegistros.bd_abog_zona}</span></label>
-                <label>Asesor:<span>{cargoRegistros.bd_abog_asesor === true ? 'Si' : 'No'}</span></label>
-                <label>Defensor:<span>{cargoRegistros.bd_abog_defensor === true ? 'Si' : 'No'}</span></label>
+                {/* <label>Domicilio Particular:<span>{cargoRegistros.bd_abog_domicilio && cargoRegistros.bd_abog_domicilio.particular}</span></label> */}
+                {cargoRegistros.bd_abog_domicilio && <label>Domicilio Particular:<span>{cargoRegistros.bd_abog_domicilio.particular}</span></label>}
+                {/* <label>Domicilio Particular:<span>{cargoRegistros.bd_abog_domicilio && cargoRegistros.bd_abog_domicilio.particular}</span></label> */}
             </section>
             <section className='seccionDisplayFlex'>
-                <label>Domicilio Particular:<span>{cargoRegistros.bd_abog_domicilio.particular}</span></label>
-            </section>
-            <section className='seccionDisplayFlex'>
-                <label>Domicilio Legal:<span>{cargoRegistros.bd_abog_domicilio.legal}</span></label>
+                {cargoRegistros.bd_abog_domicilio && cargoRegistros.bd_abog_domicilio.legal && <label>Domicilio Legal:<span>{cargoRegistros.bd_abog_domicilio.legal}</span></label>}
+                {/* <label>Domicilio Legal:<span>{cargoRegistros.bd_abog_domicilio && cargoRegistros.bd_abog_domicilio.legal}</span></label> */}
             </section>
              <section className='seccionDisplayFlex'>
-                <label>Domicilio Constituido:<span>{cargoRegistros.bd_abog_domicilio.constituido}</span></label>
+                {cargoRegistros.bd_abog_domicilio && cargoRegistros.bd_abog_domicilio.constituido && <label>Domicilio Constituido:<span>{cargoRegistros.bd_abog_domicilio.constituido}</span></label>}
+                {/* <label>Domicilio Constituido:<span>{cargoRegistros.bd_abog_domicilio && cargoRegistros.bd_abog_domicilio.constituido}</span></label> */}
             </section>
             <section className='seccionDisplayFlex'>
-                <label>Horario de Atención:<span>{cargoRegistros.bd_abog_horario_atencion}</span></label>
+                {cargoRegistros.bd_abog_horario_atencion && <label>Horario de Atención:<span>{cargoRegistros.bd_abog_horario_atencion}</span></label>}
             </section>
             <section className='seccionDisplayFlex'>
-                <label>Usuario M.E.V.:<span>{cargoRegistros.bd_abog_usuario_mev}</span> </label>
+                {cargoRegistros.bd_abog_usuario_mev && <label>Usuario M.E.V.:<span>{cargoRegistros.bd_abog_usuario_mev}</span> </label>}
             </section>
             <div className='botonesAccion'>
                 {botonEditar && <button onClick={()=>handlerEditar()}>Editar</button>}
                 {/* {botonBorrar && <button onClick={handlerBorrar}>Borrar</button>}  */}
                 {botonBorrar && <button onClick={() => handlerBorrar()}>Borrar</button>}
                 {botonVolver && <button onClick={()=>handlerVolver()}>Volver</button>}
-                
-
             </div>
             
             {verVentanaEdicion &&

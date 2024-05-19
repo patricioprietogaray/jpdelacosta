@@ -54,10 +54,14 @@ const FormAbogEditar = ({ registro, cerrarVentanaEditar }) => {
         // Si es un checkbox, actualiza el estado según si está marcado o no    
         // if (type === 'checkbox') {
         //setDatos({ ...datos, [name]: checked });
-        setDatos(prevState => ({
-            ...prevState,
-            [name]: type === 'checkbox' ? checked : e.target.value
-        }));
+        if (!name.includes('.')) {
+            setDatos(prevState => ({
+                ...prevState,
+                [name]:  type === 'checkbox' ? checked : e.target.value
+            }));
+        }
+
+         
         // if (checked) {
         //     alert(`Checkbox ${name} marcado`);
         // } else {
@@ -109,22 +113,22 @@ const FormAbogEditar = ({ registro, cerrarVentanaEditar }) => {
                 </div>
             </section>
             <section className='seccionDisplayFlex'>
-                <div>
+                {/* <div>
                     <label>Tomo:</label>
                     <input
-                        name='bd_abog_tomo'
-                        value={datos.bd_abog_tomo}
+                        name='bd_abog_colegio.tomo'
+                        value={datos.bd_abog_colegio && datos.bd_abog_colegio.tomo}
                         className='anchoChico textoDerecha espaciado'
                         onChange={inputEditado} />
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                     <label>Folio:</label>
                     <input
-                        name='bd_abog_folio'
-                        value={datos.bd_abog_folio}
+                        name='bd_abog_colegio.folio'
+                        value={datos.bd_abog_colegio && datos.bd_abog_colegio.folio}
                         className='anchoChico textoDerecha espaciado'
                         onChange={inputEditado} />
-                </div>
+                </div> */}
                 <div>
                     <label>CUIT:</label>
                     <input
@@ -135,6 +139,79 @@ const FormAbogEditar = ({ registro, cerrarVentanaEditar }) => {
                 </div>
             </section>
             <section className='seccionDisplayFlex'>
+                {/* <div>
+                    <label>Teléfono Fijo:</label>
+                    <input
+                        name='bd_abog_contacto.telefono_fijo'
+                        value={datos.bd_abog_contacto && datos.bd_abog_contacto.telefono_fijo}
+                        className='anchoMediano espaciado'
+                        onChange={inputEditado} />
+                </div> */}
+                {/* <div>
+                    <label>Celular:</label>
+                    <input
+                        name='bd_abog_contacto.celular'
+                        value={datos.bd_abog_contacto && datos.bd_abog_contacto.celular}
+                        className='anchoMediano espaciado'
+                        onChange={inputEditado} />
+                </div> */}
+            </section>
+            <section className='seccionDisplayFlex'>
+                {/* <div>
+                    <label>E - Mail:</label>
+                    <input
+                        className='anchoGrande espaciado'
+                        name='bd_abog_contacto.email'
+                        value={datos.bd_abog_contacto && datos.bd_abog_contacto.email}
+                        onChange={inputEditado} />
+                </div> */}
+            </section>
+            <section className='seccionDisplayFlex'>
+                {/* <div>
+                    <label>Domiclio Electrónico:</label>
+                    <input
+                        className='anchoGrande espaciado'
+                        name='bd_abog_contacto.domicilio_electronico'
+                        value={datos.bd_abog_contacto && datos.bd_abog_contacto.domicilio_electronico}
+                        onChange={inputEditado} />
+                </div> */}
+            </section> 
+            <section className='seccionDisplayFlex'>
+                {/* <div>
+                    <label>Asesor:</label>
+                    <input
+                        type="checkbox"
+                        name="bd_abog_sorteo_seteo.asesor"
+                        checked={datos.bd_abog_sorteo_seteo && datos.bd_abog_sorteo_seteo.asesor}
+                        onChange={inputEditado}
+                    />
+                </div> */}
+                {/* <div>
+                    <label>Defensor:</label>
+                    <input
+                        type="checkbox"
+                        name="datos.bd_abog_sorteo_seteo.defensor"
+                        checked={datos.bd_abog_sorteo_seteo && datos.bd_abog_sorteo_seteo.defensor}
+                        onChange={inputEditado}
+                    />
+                </div> */}
+                {/* <div>
+                    <label>Zona de Sorteo:</label>
+                    <select
+                        value={datos.bd_abog_zona}
+                        name='bd_abog_zona'
+                        onChange={inputEditado}
+                    >
+                        <option value='norte'>Zona Norte (San Clemente del Tuyú)</option>
+                        <option value='centro'>Zona Centro (Las Toninas - Costa del Este)</option>
+                        <option value='sur'>Zona Sur (Aguas Verdes - Costa Esmeralda)</option>
+                    </select>
+                </div> */}
+            </section>
+                
+            
+
+            {/* <section className='seccionDisplayFlex'>
                 <div>
                     <label>Domicilio Real: </label>
                     <input
@@ -143,8 +220,8 @@ const FormAbogEditar = ({ registro, cerrarVentanaEditar }) => {
                         value={datos.bd_abog_domicilio_real}
                         onChange={inputEditado} />
                 </div>
-            </section>
-            <section className='seccionDisplayFlex'>
+            </section> */}
+            {/* <section className='seccionDisplayFlex'>
                 <div>
                     <label>Teléfono Fijo: </label>
                     <input
@@ -161,8 +238,8 @@ const FormAbogEditar = ({ registro, cerrarVentanaEditar }) => {
                         value={datos.bd_abog_celular}
                         onChange={inputEditado} />
                 </div>
-            </section>
-            <section className='seccionDisplayFlex'>
+            </section> */}
+            {/* <section className='seccionDisplayFlex'>
                 <div>
                     <label>E - Mail:</label>
                     <input
@@ -171,8 +248,8 @@ const FormAbogEditar = ({ registro, cerrarVentanaEditar }) => {
                         value={datos.bd_abog_email}
                         onChange={inputEditado} />
                 </div>
-            </section>
-            <section className='seccionDisplayFlex'>
+            </section> */}
+            {/* <section className='seccionDisplayFlex'>
                 <div>
                     <label>Domiclio Electrónico:</label>
                     <input
@@ -181,8 +258,8 @@ const FormAbogEditar = ({ registro, cerrarVentanaEditar }) => {
                         value={datos.bd_abog_domicilio_electronico}
                         onChange={inputEditado} />
                 </div>
-            </section>
-            <section className='seccionDisplayFlex'>
+            </section> */}
+            {/* <section className='seccionDisplayFlex'>
                 <div>
                     <label>Asesor:</label>
                     <input
@@ -201,8 +278,8 @@ const FormAbogEditar = ({ registro, cerrarVentanaEditar }) => {
                         onChange={inputEditado}
                     />
                 </div>
-            </section>
-            <section className='seccionDisplayFlex'>
+            </section> */}
+            {/* <section className='seccionDisplayFlex'>
                 <div>
                     <label>Domicilio Legal:</label>
                     <input
@@ -211,8 +288,8 @@ const FormAbogEditar = ({ registro, cerrarVentanaEditar }) => {
                         value={datos.bd_abog_domicilio_legal}
                         onChange={inputEditado}/>
                 </div>
-            </section>
-            <section className='seccionDisplayFlex'>
+            </section> */}
+            {/* <section className='seccionDisplayFlex'>
                 <div>
                     <label>Zona de Sorteo:</label>
                     <select
@@ -225,7 +302,7 @@ const FormAbogEditar = ({ registro, cerrarVentanaEditar }) => {
                         <option value='sur'>Zona Sur (Aguas Verdes - Costa Esmeralda)</option>
                     </select>
                 </div>
-            </section>
+            </section> */}
             <section className='seccionDisplayFlex'>
                 <div>
                     <label>Horario de Atención: </label>

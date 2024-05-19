@@ -13,21 +13,27 @@ const abogado_schema_const = new Schema(
 
         bd_abog_cuit: { type: Number, require: true, unique:true },
         bd_abog_nombre: { type: String },
-        bd_abog_tomo: { type: Number },
-        bd_abog_folio: { type: Number },
-        bd_abog_asesor: { type: Boolean },
-        bd_abog_defensor: { type: Boolean },
-        bd_abog_domicilio_electronico: { type: String },
-        bd_abog_email: { type: String },
-        bd_abog_domiclio: {
+        bd_abog_colegio: {
+            tomo: { type: Number },
+            folio: {type: Number }
+        },
+        bd_abog_sorteo_seteo: {
+            asesor: {type: Boolean},
+            defensor: {type: Boolean}, 
+            zona_sorteo: {type: String}
+        },
+        bd_abog_contacto: {
+            domicilio_electronico: {type: String},
+            telefono_fijo: {type: String},
+            celular: {type: String},
+            email: {type: String}
+        },
+        bd_abog_domicilio: {
             particular: { type: String },
             legal: { type: String },
             constituido: {type: String}
         },
         bd_abog_horario_atencion: { type: String }, 
-        bd_abog_celular: { type: String },
-        bd_abog_telefono_fijo: { type: String },
-        bd_abog_zona: { type: String },
         bd_abog_usuario_mev: {type: String}        
     }
 );
