@@ -283,13 +283,40 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
                         )
                     }
                     {datos.length > 0 && (datosPaginados.map((dato, index) => (
-                        <tr key={index} onClick={()=>tablaClic(dato.bd_abog_cuit)}>
-                            <td className='nombreAbogado'>{dato.bd_abog_nombre}</td>
-                            <td>{dato.bd_abog_cuit}</td>
-                            <td>{dato.bd_abog_contacto.celular}</td>
-                            <td>{dato.bd_abog_usuario_mev}</td>
-                            <td>{dato.bd_abog_sorteo_seteo.zona_sorteo}</td>
+                        <tr key={index} onClick={() => tablaClic(dato.bd_abog_cuit)}>
+                            
+                            {dato.bd_abog_nombre &&
+                                <td className='nombreAbogado'>{dato.bd_abog_nombre}</td>}
+                            
+                            {dato.bd_abog_cuit &&
+                                <td>{dato.bd_abog_cuit}</td>}
+                            
+                            {dato.bd_abog_contacto &&
+                                dato.bd_abog_contacto.celular &&
+                                    dato.bd_abog_contacto.celular?
+                                    <td>{dato.bd_abog_contacto.celular}</td> :
+                                    <td>Sin Datos</td>}
+
+                            {dato.bd_abog_usuario_mev &&
+                                dato.bd_abog_usuario_mev?
+                                <td>{dato.bd_abog_usuario_mev}</td> :
+                                <td>Sin Datos</td>}
+
+                            {dato.bd_abog_sorteo_seteo &&
+                                dato.bd_abog_sorteo_seteo.zona_sorteo && 
+                                    // si hay datos
+                                    dato.bd_abog_sorteo_seteo.zona_sorteo ?
+                                        <td>{dato.bd_abog_sorteo_seteo.zona_sorteo}</td> :
+                                        <td>Sin datos</td>}
                         </tr>
+                        
+                        // <tr key={index} onClick={() => tablaClic(dato.bd_abog_cuit)}>
+                        //     <td className='nombreAbogado'>{dato.bd_abog_nombre}</td>
+                        //     <td>{dato.bd_abog_cuit}</td>
+                        //     <td>{dato.bd_abog_contacto.celular}</td>
+                        //     <td>{dato.bd_abog_usuario_mev}</td>
+                        //     <td>{dato.bd_abog_sorteo_seteo.zona_sorteo}</td>
+                        // </tr>
                         )
                     ))}
                 </tbody>
