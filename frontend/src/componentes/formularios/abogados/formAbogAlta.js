@@ -8,22 +8,14 @@ const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral, todosLosDatos }) => {
 
     const host = '192.168.18.100';
 
-    const initialState = {
-        bd_abog_cuit: 0, 
-        bd_abog_nombre: '',
-        bd_abog_usuario_mev: ''
-    };
-
-    const [nuevoAbogado, setNuevoAbogado] = useState(initialState);
-
     const [datosAcargar, setDatosAcargar] = useState({
         bd_abog_cuit: 'Sin Datos',
         bd_abog_nombre: 'Sin Datos',
         bd_abog_colegio: {
-            tomo: 'Sin Datos',
-            folio: 'Sin Datos'
+            tomo: 0,
+            folio: 0
         },
-        bd_agog_contacto: {
+        bd_abog_contacto: {
             domicilio_electronico: 'Sin Datos',
             telefono_fijo: 'Sin Datos',
             celular: 'Sin Datos',
@@ -38,6 +30,10 @@ const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral, todosLosDatos }) => {
         bd_abog_usuario_mev: 'Sin Datos'
     });
 
+    const [nuevoAbogado, setNuevoAbogado] = useState(datosAcargar);
+
+    
+
     //mensajes y errores desde el backend
     const [mensajeParaMostrar, setMensajeParaMostrar] = useState('');
     const [errorParaMostrar, setErrorParaMostrar] = useState('');
@@ -45,8 +41,37 @@ const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral, todosLosDatos }) => {
 
     // Función para manejar el cambio en el input
     const handlerChange = (event) => {
+        
+        //cargo clave-valor del textbox que tengo el foco
         const { name, value } = event.target;
-        setNuevoAbogado({ ...nuevoAbogado, [name]: value });
+
+        // Errror el input siempre queda con un caracter y no se puede borrar.
+        // if (value.trim() !== '') {  //si el valor esta vacio
+            
+            if (!name.includes('.')) {  // si la clave no incluye punto (ej: bd_abog_cuit)
+                setNuevoAbogado(prevState => ({ //leo todo el objeto nuevoAbogado
+                    ...prevState,  // dejo todos los datos como estan
+                    [name]: value  // y agrego uno nuevo 
+                }));
+            } else { // si la clave incluye punto (ej: bd_abog_colegio.tomo)
+
+                // divido en dos constantes lo que separa el punto
+                // del ejemplo anterior firstLevel (bd_abog_colegio)
+                // secondLevel (tomo)
+
+                const [firstLevel, secondLevel] = name.split('.');
+                setNuevoAbogado(prevState => ({
+                    ...prevState,  // dejo todos los datos como estan
+                    [firstLevel]: {
+                        ...prevState[firstLevel], //bd_abog_colegio se mantiene igual
+                        [secondLevel]: value //tomo es modificado con su valor
+                    }
+                }));                
+            }
+        // }
+
+
+        //setNuevoAbogado({ ...nuevoAbogado, [name]: value });
     };
 
     // Función para manejar el envío del formulario
@@ -57,10 +82,20 @@ const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral, todosLosDatos }) => {
         const newData = {
             bd_abog_cuit: nuevoAbogado.bd_abog_cuit >= 20000000000 ? nuevoAbogado.bd_abog_cuit : 'Sin Datos',
             bd_abog_nombre: nuevoAbogado.bd_abog_nombre !== '' ? nuevoAbogado.bd_abog_nombre : 'Sin Datos',
-            bd_abog_usuario_mev: nuevoAbogado.bd_abog_usuario_mev !== '' ? nuevoAbogado.bd_abog_usuario_mev : 'Sin Datos'
+            bd_abog_usuario_mev: nuevoAbogado.bd_abog_usuario_mev !== '' ? nuevoAbogado.bd_abog_usuario_mev : 'Sin Datos',
+            bd_abog_colegio: {
+                tomo: nuevoAbogado.bd_abog_colegio.tomo !== 0 ? nuevoAbogado.bd_abog_colegio.tomo : 0,
+                folio: nuevoAbogado.bd_abog_colegio.folio !== 0 ? nuevoAbogado.bd_abog_colegio.folio : 0
+            },
+            bd_abog_contacto: {
+                domicilio_electronico: nuevoAbogado.bd_abog_contacto.domicilio_electronico !== '' ? nuevoAbogado.bd_abog_contacto.domicilio_electronico : 'Sin Datos',
+                telefono_fijo: nuevoAbogado.bd_abog_contacto.telefono_fijo !== '' ? nuevoAbogado.bd_abog_contacto.telefono_fijo : 'Sin Datos',
+                celular: nuevoAbogado.bd_abog_contacto.celular !== '' ? nuevoAbogado.bd_abog_contacto.celular : 'Sin Datos',
+                email: nuevoAbogado.bd_abog_contacto.email !== '' ? nuevoAbogado.bd_abog_contacto.email : 'Sin Datos'
+            }
         };
 
-        // en vez de agregar de a uno, de esta manera SALTAN TODOS LOS ERRORES ....
+        // en vez de agregar de a uno, de esta manera SALTAN TODOS LOS ERRORES .... 
         // if (nuevoAbogado.bd_abog_nombre !== '') {
             // alert(`Nombre del abogado: ${nuevoAbogado.bd_abog_nombre}`);
             // setDatosAcargar({
@@ -84,7 +119,7 @@ const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral, todosLosDatos }) => {
 
         // Filtramos newData para eliminar las entradas con valor 'Sin datos'
         const filteredData = Object.keys(newData)
-            .filter(key => newData[key] !== 'Sin Datos')
+            .filter(key => newData[key] !== 'Sin Datos' )
             .reduce((obj, key) => {
                 obj[key] = newData[key];
                 return obj;
@@ -98,6 +133,8 @@ const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral, todosLosDatos }) => {
             setMensajeParaMostrar(response.data.msg); 
             // no muestro errores
             setErrorParaMostrar('');
+            //actualizar los datos de la tabla en AbogGeneral
+            todosLosDatos();
         } catch (error) {
             //console.error('Error al enviar los datos:', error);
             setMensajeParaMostrar('');
@@ -119,6 +156,15 @@ const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral, todosLosDatos }) => {
             <form onSubmit={handleSubmit}>
                 <section className='seccionDisplayFlex'>
                     <div>
+                        <label>CUIT: </label>
+                        <input
+                            className='anchoMediano  espaciado'
+                            name='bd_abog_cuit'
+                            value={Number(nuevoAbogado.bd_abog_cuit)}
+                            onChange={handlerChange}
+                        />
+                    </div>                    
+                    <div>
                         <label>Apellidos y Nombres: </label>
                         <input
                             className='anchoGrande espaciado'
@@ -127,16 +173,69 @@ const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral, todosLosDatos }) => {
                             onChange={handlerChange}
                         />
                     </div>
+                </section>
+                <section className='seccionDisplayFlex'>
                     <div>
-                        <label>CUIT: </label>
+                        <label>Tomo: </label>
                         <input
-                            className='anchoMediano  espaciado'
-                            name='bd_abog_cuit'
-                            value={nuevoAbogado.bd_abog_cuit}
+                            className='anchoChico espaciado textoDerecha'
+                            name='bd_abog_colegio.tomo'
+                            value={Number(nuevoAbogado.bd_abog_colegio.tomo)}
+                            onChange={handlerChange}
+                        />
+                    </div>
+                    <div>
+                        <label>Folio: </label>
+                        <input
+                            className='anchoChico espaciado textoDerecha'
+                            name='bd_abog_colegio.folio'
+                            value={Number(nuevoAbogado.bd_abog_colegio.folio)}
                             onChange={handlerChange}
                         />
                     </div>
                 </section>
+                <section className='seccionDisplayFlex'>
+                    <div>
+                        <label>Domicilio Electrónico: </label>
+                        <input
+                            className='anchoGrande espaciado'
+                            name='bd_abog_contacto.domicilio_electronico'
+                            value={nuevoAbogado.bd_abog_contacto.domicilio_electronico}
+                            onChange={handlerChange}
+                        />
+                    </div>
+                </section>                
+                <section className='seccionDisplayFlex'>
+                    <div>
+                        <label>Teléfono fijo: </label>
+                        <input
+                            className='anchoMediano espaciado'
+                            name='bd_abog_contacto.telefono_fijo'
+                            value={nuevoAbogado.bd_abog_contacto.telefono_fijo}
+                            onChange={handlerChange}
+                        />
+                    </div>
+                    <div>
+                        <label>Celular: </label>
+                        <input
+                            className='anchoMediano espaciado'
+                            name='bd_abog_contacto.celular'
+                            value={nuevoAbogado.bd_abog_contacto.celular}
+                            onChange={handlerChange}
+                        />
+                    </div>
+                </section>
+                <section className='seccionDisplayFlex'>
+                    <div>
+                        <label>E-Mail: </label>
+                        <input
+                            className='anchoGrande espaciado'
+                            name='bd_abog_contacto.email'
+                            value={nuevoAbogado.bd_abog_contacto.email}
+                            onChange={handlerChange}
+                        />
+                    </div>
+                 </section>
                 <button type="submit">Submit</button>
             </form>
             {mensajeParaMostrar && <div className='tablaUnicoTextoCentrado'>{mensajeParaMostrar}</div>}
