@@ -7,7 +7,6 @@ import axios from 'axios';
 const FormAbogEditar = ({ registro, cerrarVentanaEditar }) => {
 
     const host = "192.168.18.100";
-   
 
     //*************************************************************************** */
     //** LLamado a la funcion cerrar desde el componente consultas */
@@ -47,11 +46,22 @@ const FormAbogEditar = ({ registro, cerrarVentanaEditar }) => {
         // Si es un checkbox, actualiza el estado según si está marcado o no    
         // if (type === 'checkbox') {
         //setDatos({ ...datos, [name]: checked });
+
+        //Funcion para eliminar atributo de la coleccion cuyo valor sea 'Sin Datos'
+        const eliminarAtributoSinDatos = (prevState, key) => {
+            const newState = { ...prevState };
+            if (newState[key] === 'Sin Datos') {
+                delete newState[key];
+            }
+            return newState;
+        };
+
         if (!name.includes('.')) {
             // si no esta anidado
             setDatos(prevState => ({
-                ...prevState,
-                [name]:  type === 'checkbox' ? checked : value
+                ...eliminarAtributoSinDatos(prevState, name),
+                // [name]:  type === 'checkbox' ? checked : value
+                [name]: value
             }));
         } else {
             // si es una propiedad anidada
@@ -59,10 +69,13 @@ const FormAbogEditar = ({ registro, cerrarVentanaEditar }) => {
             setDatos(prevState => ({
                 ...prevState,
                 [keys[0]]: {
-                    ...prevState[keys[0]],
-                    [keys[1]]: type === 'checkbox' ? checked : value
+                    ...eliminarAtributoSinDatos(prevState[keys[0]], keys[1]),
+                        [keys[1]]: value
                 }
             }));
+            // [keys[0]]: {
+            // ...prevState[keys[0]],
+            // [keys[1]]: type === 'checkbox' ? checked : value
         }
 
          
