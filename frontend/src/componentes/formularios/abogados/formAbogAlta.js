@@ -27,7 +27,9 @@ const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral, todosLosDatos }) => {
             legal: 'Sin Datos',
             constituido: 'Sin Datos'
         },
-        bd_abog_usuario_mev: 'Sin Datos'
+        bd_abog_usuario_mev: 'Sin Datos',
+        bd_abog_sorteado: false,
+        bd_abog_proximo_sorteo: false
     });
 
     const [nuevoAbogado, setNuevoAbogado] = useState(datosAcargar);
@@ -311,7 +313,7 @@ const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral, todosLosDatos }) => {
                         />
                     </div>
                 </section>
-                <button type="submit">Submit</button>
+                <button type="submit">Agregar</button>
             </form>
             {mensajeParaMostrar && <div className='tablaUnicoTextoCentrado'>{mensajeParaMostrar}</div>}
             {errorParaMostrar &&

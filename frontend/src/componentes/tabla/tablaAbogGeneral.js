@@ -272,7 +272,7 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
                         <th>CUIT</th>
                         <th>CELULAR</th>
                         <th>USUARIO MEV</th>
-                        <th>ZONA</th>
+                        {/* <th>ZONA</th> */}
                     </tr>
                 </thead>
                 <tbody>
@@ -302,12 +302,12 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
                                 <td>{dato.bd_abog_usuario_mev}</td> :
                                 <td>Sin Datos</td>}
 
-                            {dato.bd_abog_sorteo_seteo &&
+                            {/* {dato.bd_abog_sorteo_seteo &&
                                 dato.bd_abog_sorteo_seteo.zona_sorteo && 
                                     // si hay datos
                                     dato.bd_abog_sorteo_seteo.zona_sorteo ?
                                         <td>{dato.bd_abog_sorteo_seteo.zona_sorteo}</td> :
-                                        <td>Sin datos</td>}
+                                        <td>Sin datos</td>} */}
                         </tr>
                         
                         // <tr key={index} onClick={() => tablaClic(dato.bd_abog_cuit)}>
