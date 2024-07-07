@@ -172,7 +172,7 @@ const FormAbogAlta = ({ cerrarVentanaAgregarDesdeGeneral, todosLosDatos }) => {
     return (
         <div className='ventanaEmergente'>
             <section className='barraTitulo'>
-                <article>Crear un nuevo registro</article>
+                <h4>Crear un nuevo registro</h4>
                 <article className='close-button' onClick={handlerVolverClic}></article>
             </section>
             <form onSubmit={handleSubmit}>

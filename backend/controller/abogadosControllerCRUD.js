@@ -68,23 +68,23 @@ const abogadosPorNombre = async (req, res) => {
     }
 }
 
-const abogadosPorZona = async (req, res) => {
-    try {
-        // busqueda de un texto dentro de una cadena de caracteres
-        const regex = new RegExp(req.params.zona, 'i'); // 'i' para hacer la búsqueda insensible a mayúsculas y minúsculas
-        const abogadosZona = await abogadoSchema.find({ "bd_abog_sorteo_seteo.zona_sorteo": regex });
+// const abogadosPorZona = async (req, res) => {
+//     try {
+//         // busqueda de un texto dentro de una cadena de caracteres
+//         const regex = new RegExp(req.params.zona, 'i'); // 'i' para hacer la búsqueda insensible a mayúsculas y minúsculas
+//         const abogadosZona = await abogadoSchema.find({ "bd_abog_sorteo_seteo.zona_sorteo": regex });
         
-        if (abogadosZona.length > 0) {
-            res.status(200).json({ abogados_collections: abogadosZona , msg: "Proceso exitoso!" });
-        } else {
-            res.status(404).json({ abogados_collections: [], msg: "Sin datos que mostrar!" });
-        }
+//         if (abogadosZona.length > 0) {
+//             res.status(200).json({ abogados_collections: abogadosZona , msg: "Proceso exitoso!" });
+//         } else {
+//             res.status(404).json({ abogados_collections: [], msg: "Sin datos que mostrar!" });
+//         }
         
-    } catch (error) {
-        res.status(500).json({ abogados_collections: [], msg: "Sin conexión al servidor!" });
-    }
+//     } catch (error) {
+//         res.status(500).json({ abogados_collections: [], msg: "Sin conexión al servidor!" });
+//     }
 
-}
+// }
 
 // crUd -> Update
 // se puede acutalizar cualquier atributo cuit incluido (por no ser el id)
@@ -152,10 +152,38 @@ const borrarRegistroAbog = async (req, res) => {
     }
 }
 
+const sortearAbogado = async (_, res) => {
+    try {
+        // Obtener todos los abogados y seleccionar solo los campos 'bd_abog_cuit' y 'bd_abog_nombre'
+        // const todosAbog = await abogadoSchema.find().select('bd_abog_cuit bd_abog_nombre');
+        const todosAbog = await abogadoSchema.find(); //.select('bd_abog_cuit bd_abog_nombre');
+
+        // Calcular la cantidad de abogados totales
+        const cantidadAbog = todosAbog.length;
+
+        // Obtener un índice aleatorio dentro del rango de abogados disponibles
+        const indiceAleatorio = Math.floor(Math.random() * cantidadAbog);
+
+        // Obtener el abogado aleatorio utilizando el índice aleatorio generado
+        const abogadoAleatorio = todosAbog[indiceAleatorio];
+
+        // Enviar la respuesta con estado 200 (OK) junto con el abogado aleatorio, la cantidad de abogados y un mensaje de éxito
+        res.status(200).json({ 
+            total_abogados: cantidadAbog, 
+            abogado_aleatorio: abogadoAleatorio,
+            msg: "Proceso exitoso!" 
+        });
+    } catch (error) {
+        // En caso de error, enviar una respuesta con estado 500 (Error interno del servidor) y un mensaje de error
+        res.status(500).json({ abogados_collections: [], msg: "Sin conexión al servidor!" });
+    }
+}
+
 
 module.exports = {
     crearRegistroAbog, todosLosAbogados,
     actualizarRegistroAbog, borrarRegistroAbog,
     unAbogadoPorCuit, abogadosPorNombre,
-    abogadosPorZona
+    sortearAbogado
+    // abogadosPorZona
 }

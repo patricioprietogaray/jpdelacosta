@@ -7,6 +7,7 @@ import '../css/abogados/ventanasEmergentes.css';
 import axios from 'axios';
 import FormAbogConsulta from '../formularios/abogados/formAbogConsulta';
 import FormAbogAlta from '../formularios/abogados/formAbogAlta';
+import FormAbogSorteo from '../formularios/abogados/formAbogSorteo';
 
 
 const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
@@ -71,6 +72,9 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
     //estado para ver el registro en la consulta
     const [verRegConsulta, setVerRegConsulta] = useState(false);
 
+    //estado para ver el sorteo de abogados
+    const [verSorteoAbogaodos, setVerSorteoAbogados] = useState(false);
+
     //* COMO ES EL PRIMER COMPONENTE ANIDADO NO HAY FUNCIONES ANTERIORES QUE MANEJAR
 
     //llamo a la funcion cerrar del componente anterior que muestra el componete actual
@@ -95,6 +99,12 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
     const cerrarComponenteConsulta = () => {
         setVerRegConsulta(false);
     }
+
+    //* Manejo de Cierre de la ventana sorteo
+
+    const cerrarComponenteSorteo = () => {
+        setVerSorteoAbogados(false);
+    }
     //defino a la funcion cerrar del componente actual que mostrará el componente que llamo desde aqui
 
     //codigo de cierre del componente hijo
@@ -106,6 +116,10 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
     //boton nuevo registro
     const agregarRegNuevo = () => {
         setVerNuevoRegistro(true);
+    }
+
+    const sorteo = () => {
+        setVerSorteoAbogados(true);
     }
 
 
@@ -335,8 +349,10 @@ const TablaAbogGeneral = ({ atributo, textoBusqueda }) => {
                     disabled={paginaAcutal * registrosPorPagina >= datos.length}>Siguiente</button>
             </section>
             <button onClick={agregarRegNuevo}>Agregar un registro nuevo</button>
+            <button onClick={sorteo}>Sorteo</button>
             {verNuevoRegistro && (<FormAbogAlta cerrarVentanaAgregarDesdeGeneral={cerrarComponenteAgregar} todosLosDatos={todosLosDatos} />)}
             {verRegConsulta !== false && (<FormAbogConsulta registro={registroSeleccionado} cerrarVentanaConsultaDesdeGeneral={cerrarComponenteConsulta} todosLosDatos={todosLosDatos} />)}
+            {verSorteoAbogaodos !== false && (<FormAbogSorteo cerrarVentanaAgregarDesdeGeneral={cerrarComponenteSorteo} /> )}
         </>
     );
 }

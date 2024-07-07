@@ -21,7 +21,7 @@ routesAbogados.get("/cuit/:cuit", middlewareCuitNumero, abogadosController.unAbo
 routesAbogados.get("/nombre/:nombre", abogadosController.abogadosPorNombre);
 
 // buscar por zona
-routesAbogados.get("/zona/:zona", abogadosController.abogadosPorZona);
+// routesAbogados.get("/zona/:zona", abogadosController.abogadosPorZona);
 
 //routesAbogados.get("/:cuit", middlewareCuitNumero, abogadosController.todosLosAbogados);
 
@@ -56,7 +56,8 @@ routesAbogados.put("/actualizar/:cuit", middlewareCuitNumero,
 
 routesAbogados.delete("/borrar/:cuitParaBorrar", middlewareCuitNumero, abogadosController.borrarRegistroAbog);
 
-
+//sorteo de un abogado
+routesAbogados.get("/sorteo/", abogadosController.sortearAbogado);
 
 
 module.exports = routesAbogados;
